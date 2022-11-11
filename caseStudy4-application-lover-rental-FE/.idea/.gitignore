@@ -3,3 +3,6 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+.idea/
+caseStudy4-application-lover-rental-FE/.idea/.gitignore
+..idea/
