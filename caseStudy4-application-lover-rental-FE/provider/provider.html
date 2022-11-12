@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
     function getAllProvider(){
-        localStorage.clear();
+
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/provider/lists",
@@ -14,6 +14,7 @@
                 showAllProvider(data)
             }
         })
+        event.preventDefault();
     }
     function showAllProvider(lists){
         let res = "<tr>\n" +
@@ -161,7 +162,10 @@
             type: "POST",
             url: "http://localhost:8080/provider/save",
             data: JSON.stringify(nal),
-            success: getAllProvider(),
+            success: function (){
+                location.reload();
+                setUser(userid);
+            },
             error: function (err){
                 console.log(err)
             }
@@ -197,8 +201,8 @@
     </script>
 </head>
 <body onload="getAllProvider()">
-<button onclick="showFormAddProvider()">Add Provider</button>
-<button onclick="setUser(1)">set user</button>
+<button onclick="showFormAddProvider(2)">Add Provider</button>
+<button onclick="setUser(2)">set user</button>
     <div id="display"></div>
 <p>Đây là Provider</p>
 </body>
