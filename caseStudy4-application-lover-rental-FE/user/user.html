@@ -27,21 +27,19 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!--===============================================================================================-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../provider/provider.js"></script>
 </head>
 
-<body onload="getAllUser()">
+<body>
 <div class="panel panel-default">
     <div class="panel-body">
-        <table id="ordersTable" class="table table-striped table-bordered">
-            <thead>
-            <h2>Thông tin tài khoản</h2>
-            <div class="product-shop col-sm-5 col-xs-12" id="view">
-            </div>
-            </thead>
-            <tbody></tbody>
+        <button onclick="showFormAddUser()">Add User</button>
+        <div id="display"></div>
+        <table id="userList">
+
         </table>
     </div>
 </div>
-</div>
 <script src="user.js"></script>
+
 </body>
