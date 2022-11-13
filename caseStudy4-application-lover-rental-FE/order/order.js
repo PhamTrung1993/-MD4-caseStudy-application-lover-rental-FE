@@ -27,9 +27,26 @@ function showAllOrder(lists) {
         let order = lists[i];
         res += "<tr>\n" +
             "    <td>" + (i +1)       +   "</td>\n" +
-            "    <td>" + order.user_id  + "</td>\n" +
+            "    <td>" + order.user.userName  + "</td>\n" +
+            "    <td>" + order.provider.name  + "</td>\n" +
+            "    <td>" + order.startTime.slice(0,10)  + "</td>\n" +
+            `    <td>" <a class="changeStatus" onclick='changStatus($(this))' href ="${order.id}"> Status </a> </td>\n ` +
 
             `<td><a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a></td></tr>`;
     }
+    document.getElementById("display").innerHTML = "<table>" + res + "</table>"
+
+}
+function deleteOrderById(a) {
+    let orderId = a.attr("href");
+    $.ajax({
+        type: "DELETE",
+        url: `http://localhost:8080/orders/${id}`,
+        success: function (data) {
+            a.parent().parent().remove();
+        }
+    });
+//    Chặn sự kiện mặc định của thẻ
+    event.preventDefault();
 
 }
