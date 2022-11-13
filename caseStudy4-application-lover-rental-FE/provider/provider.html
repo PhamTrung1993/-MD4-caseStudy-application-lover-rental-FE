@@ -42,7 +42,21 @@
         document.getElementById("display").innerHTML = form;
     }
     function saveAvatar(providerId){
-        let form_data = new FormData();
+        let file = document.getElementById("image");
+        let formData = new FormData();
+        formData.append("image", file)
+        $.ajax({
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'multipart/form-data',
+            },
+            type: "POST",
+            url: "http://localhost:8080/avatar/upload/avatar" + providerId,
+            data: formData,
+            success: function () {
+                alert("done");
+            }
+        })
     }
     function deleteProviderById(a){
         let providerId = a.attr("href");
