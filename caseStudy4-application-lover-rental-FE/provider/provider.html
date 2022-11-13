@@ -20,15 +20,29 @@
         let res = "<tr>\n" +
             "    <td>STT</td>\n" +
             "    <td>Name</td>\n" +
+            "    <td>Avatar</td>\n" +
             "</tr>\n";
         for (let i = 0; i < lists.length; i++) {
             let provider = lists[i];
             res += "<tr>\n" +
                 "    <td>" + (i +1)       +   "</td>\n" +
                 "    <td>" + provider.name  + "</td>\n" +
-                `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${provider.id}">Delete</a></td></tr>`;
+                "    <td><img src='http://localhost:8080/avatar/get/avatar/"+ provider.avatar.name +"' style='height: 100,;width: 100'></td>\n" +
+                `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${provider.id}">Delete</a></td>\n` +
+                `</tr>` ;
         }
-        document.getElementById("display").innerHTML = "<table>" + res + "</table>";
+        document.getElementById("display").innerHTML = `<table>` + res + `</table>`;
+    }
+    function showFormAvatar(providerId){
+        let form = "";
+        form += "<input type=\"file\"\n" +
+            "       id=\"image\" name=\"image\"\n" +
+            "       accept=\"image/png, image/jpeg\"><br>"
+            + "<button onclick=\"saveAvatar("+ providerId +")\">Save</button>"
+        document.getElementById("display").innerHTML = form;
+    }
+    function saveAvatar(providerId){
+        let form_data = new FormData();
     }
     function deleteProviderById(a){
         let providerId = a.attr("href");
@@ -37,6 +51,8 @@
             url: `http://localhost:8080/provider/${providerId}`,
             success: function (data) {
                 a.parent().parent().remove();
+                location.reload();
+                getAllProvider();
             }
 
         });
@@ -62,25 +78,17 @@
             }
         })
     }
-    function findService(i) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/serProvider/" +i,
-            success: function (data){
-                localStorage.setItem(("serviceId" + i),data.id);
-                localStorage.setItem(("serviceName" + i),data.name);
-            }
-        })
-    }
     function createListServiceByCheckbox(){
+        let array = new Array();
         for (let i = 1; i <= serviceLength(); i++) {
             let id = "service" + i;
             document.getElementById(id).onclick = function (){
                 if (this.checked){
-                    findService(i);
+                    array.push(document.getElementById(id).value);
                 }
             }
         }
+        return array;
     }
     function createCheckboxService(data){
         let checkbox = "";
@@ -119,14 +127,15 @@
             "<br>" +
             "<button onclick=\"saveProvider()\">Save</button>" +
             "<br>" +
-            "<input type=\"hidden\" id=\"userid\" value=\"" + userid + "\">\n"
-            checkboxService();
+            "<input type=\"hidden\" id=\"userId\" value=\"" + userid + "\">\n"
+             checkboxService();
 
         document.getElementById("display").innerHTML = form;
     }
 
     function saveProvider(){
-        let userid = document.getElementById("userid").value;
+        let array = createListServiceByCheckbox();
+        let userId = document.getElementById("userId").value;
         let hobby = document.getElementById("hobby").value;
         let name = document.getElementById("name").value;
         let age = document.getElementById("age").value;
@@ -153,6 +162,8 @@
             status: "active",
             hasBeenHired: 0,
             view: 0,
+            userId: userId,
+            servicesId: array
         }
         $.ajax({
             headers: {
@@ -164,46 +175,20 @@
             data: JSON.stringify(nal),
             success: function (){
                 location.reload();
-                setUser(userid);
+                getAllProvider();
             },
             error: function (err){
                 console.log(err)
             }
         })
     }
-    function setUser(userid){
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/provider/newestProvider",
-            success: function (data){
-                let idP = data.id;
-                $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    type: "PUT",
-                    url: `http://localhost:8080/provider/updateUser/${idP}/${userid}`,
-                    success: setService(),
-                    error: function (err){
-                        console.log(err)
-                    }
-                })
-            }
-        })
-    }
-    function setService(){
-        alert("done")
-    }
-    function test() {
-        console.log(localStorage.getItem("user"));
-    }
+
     </script>
 </head>
 <body onload="getAllProvider()">
 <button onclick="showFormAddProvider(2)">Add Provider</button>
-<button onclick="setUser(2)">set user</button>
-    <div id="display"></div>
+<button onclick="showFormAvatar(1)">Up Avatar</button>
 <p>Đây là Provider</p>
+<div id="display"></div>
 </body>
 </html>

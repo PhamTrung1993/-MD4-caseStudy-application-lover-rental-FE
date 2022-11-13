@@ -6,11 +6,11 @@
     <title>Javascript Example</title>
 </head>
 <body>
-<h2>Bắt sự kiện checkbox trong Javascript</h2>
-<p>Viết chương trình bắt sự kiện check và uncheck của Javascript.</p>
-
-<input type="checkbox" id="action" value="1"/> <label>Bạn có thích blog freetuts.net không?</label>
-
+<tr>
+    <td>STT</td>
+    <td>Name</td>
+</tr>
+<tr><td >4</td><td >hoang</td><td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="3">Delete</a></td></tr><tr><td >24</td><td >Quan</td><td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="23">Delete</a></td></tr>
 <script>
     document.getElementById('action').onclick = function(e){
         if (this.checked){
