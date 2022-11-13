@@ -36,6 +36,19 @@
             event.preventDefault();
         }
 
+        function showAddOrder(userid) {
+
+            let form = `
+                        <br><input type="text" id="user_id" placeholder="ID Khách hàng">
+                        <br><input type="text" id="provider_id" placeholder="ID người Cung Cấp">
+                        <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
+                        <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
+                        <br><button onclick="addNewOrder()">Save</button><br><input type="hidden" id="userId" value="${userid}">
+                        `
+
+            document.getElementById("displayOrder").innerHTML = form;
+        }
+
         function showAllOrder() {
             ApiService.get('/orders').then(data => {
                 console.log(data)
@@ -50,6 +63,7 @@
                     </tr>`;
                 for (let i = 0; i < data.length; i++) {
                     let order = data[i];
+                    console.log(order)
                     res += `<tr>
                                 <td>${i + 1}</td>
                                 <td>${order.user.userName}</td>
@@ -70,17 +84,29 @@
 
             })
         }
+
         function changeStatus() {
-            ApiService.get("/order/{id}/changeStatus").then(data => {
+            ApiService.put("/orders/${id}").then(data => {
+                console.log(data)
+                // data.status: "paid"
+                return data
 
             })
-            
+
+        }
+        function deleteOrderById() {
+            ApiService.delete("/orders/${id}").then(data => {
+                // data.remove()
+                return data;
+                showAllOrder();
+            })
+
         }
 
     </script>
 </head>
 <body onload="showAllOrder()">
-
+<button onclick="showAddOrder()">Thêm Order</button>
 
 <div id="displayOrder"></div>
 <p>Đây là order</p>
