@@ -36,8 +36,9 @@
     <script src="../js/parallax.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/showList.js"></script>
     <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
-    <script src="../js/search.js"></script>
+
 
 
 </head>
@@ -79,7 +80,6 @@
                         <div class="toplinks">
                             <div class="links">
                                 <div class="myaccount"><a title="My Account" href="login.html"><span>My Account</span></a></div>
-                                <div class="wishlist"><a title="My Wishlist" href="wishlist.html"><span>Wishlist</span></a></div>
                                 <div class="check"><a href="checkout.html" title="Checkout"><span>Checkout</span></a></div>
                                 <div class="demo"><a href="#" title="Demo"><span>Demo</span></a></div>
                                 <!-- Header Company -->
@@ -111,41 +111,20 @@
             <div class="nav-inner">
 
                 <ul id="nav" class="hidden-xs">
-                    <li id="nav-home" class="level0 parent drop-menu active"><a href="index.html"><span>Home</span> </a>
+                    <li id="nav-home" class="level0 parent drop-menu active"><a href="home.html"><span>Home</span> </a>
                     </li>
                     <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a>
                         <ul style="display: none;" class="level1">
-                            <li class="level1 first"><a href="grid.html"><span>Grid</span></a></li>
-                            <li class="level1 nav-10-2"> <a href="home.html"> <span>List</span> </a> </li>
-                            <li class="level1 nav-10-3"> <a href="product_detail.html"> <span>Product Detail</span> </a> </li>
+                            <li class="level1 first"><a href="grid.html"><span>User</span></a></li>
+                            <li class="level1 nav-10-2"> <a href="ProviderFullList.html"> <span>Provider</span> </a> </li>
+                            <li class="level1 nav-10-3"> <a href="product_detail.html"> <span>Order</span> </a> </li>
                             <li class="level1 nav-10-4"> <a href="shopping_cart.html"> <span>Shopping Cart</span> </a> </li>
-                            <li class="level1 first parent"><a href="checkout.html"><span>Checkout</span></a>
-                                <ul class="level2">
-                                    <li class="level2 nav-2-1-1 first"><a href="checkout_method.html"><span>Checkout Method</span></a></li>
-                                    <li class="level2 nav-2-1-5 last"><a href="checkout_billing_info.html"><span>Checkout Billing Info</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="level1 nav-10-4"> <a href="wishlist.html"> <span>Wishlist</span> </a> </li>
-                            <li class="level1"> <a href="dashboard.html"> <span>Dashboard</span> </a> </li>
-                            <li class="level1"> <a href="multiple_addresses.html"> <span>Multiple Addresses</span> </a> </li>
-                            <li class="level1"> <a href="about_us.html"> <span>About us</span> </a> </li>
-                            <li class="level1"> <a href="login.html"> <span>Login</span> </a> </li>
-                            <li class="level1"> <a href="compare.html"> <span>Compare</span> </a> </li>
-                            <li class="level1"> <a href="delivery.html"> <span>Delivery</span> </a> </li>
-                            <li class="level1"> <a href="faq.html"> <span>FAQ</span> </a> </li>
-                            <li class="level1"> <a href="quick_view.html"> <span>Quick view </span> </a> </li>
-                            <li class="level1"> <a href="newsletter.html"> <span>Newsletter</span> </a> </li>
-                            <li class="level1 first parent"><a href="blog.html"><span>Blog</span></a>
-                                <ul class="level2">
-                                    <li class="level2 nav-2-1-1 first"><a href="blog_detail.html"><span>Blog Detail</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="level1"><a href="contact_us.html"><span>Contact us</span></a> </li>
-                            <li class="level1"><a href="404error.html"><span>404 Error Page</span></a> </li>
+
+                            <li class="level1"><a href="error404.html"><span>404 Error Page</span></a> </li>
                         </ul>
                     </li>
-                    <li class="level0 nav-8 level-top"> <a href="grid.html" class="level-top"> <span>Boys</span> </a> </li>
-                    <li class="level0 nav-8 level-top"> <a href="grid.html" class="level-top"> <span>Girls</span> </a> </li>
+                    <li class="level0 nav-8 level-top"> <a href="maleProviderList.html" class="level-top"> <span>Male</span> </a> </li>
+                    <li class="level0 nav-8 level-top"> <a href="femaleProviderList.html" class="level-top"> <span>FeMale</span> </a> </li>
                     <li class="level0 parent drop-menu"><a href="#"><span>Features</span> </a>
                         <ul style="display: none;" class="level1">
                             <li class="level1"><a href="Service.html"><span>Servicer</span></a> </li>
@@ -190,10 +169,8 @@
                 </ul>
                 <!-- Search-col -->
                 <div class="search-box">
-                    <form action="" method="POST" id="search_mini_form" name="Categories">
-                        <input type="text" placeholder="Search entire store here..." value="Search" maxlength="70" name="search" id="search">
-                        <button  class="btn btn-default  search-btn-bg"> <span class="glyphicon glyphicon-search"></span>&nbsp;</button>
-                    </form>
+
+                    <a href="search.html" class="btn-primary-lg" style="font-size: 30px">Search</a>
                 </div>
                 <!-- End Search-col -->
             </div>
@@ -220,9 +197,6 @@
                 <section class="col-main col-sm-9 col-sm-push-3">
                     <div class="category-title">
                         <h1>List</h1>
-                    </div>
-                    <div class="category-description std">
-                        <div class="category-image"><img src="images/women_banner.png" alt="cat imges " title="Sofas "> </div>
                     </div>
                     <div class="category-products">
                         <div class="toolbar">
@@ -297,7 +271,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <div class="footer-logo"><a href="index.html" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
+                        <div class="footer-logo"><a href="" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
                         <address>
                             <i class="add-icon">&nbsp;</i>123 Main Street, Anytown, <br>
                             &nbsp;CA 12345  USA

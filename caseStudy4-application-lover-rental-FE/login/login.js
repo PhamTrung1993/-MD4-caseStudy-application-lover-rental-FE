@@ -1,6 +1,8 @@
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let token = localStorage.getItem("token");
 console.log(currentUser)
+console.log(token)
+localStorage.setItem("userId", currentUser.id);
 
 function checkLogin() {
     if (currentUser === null) {
