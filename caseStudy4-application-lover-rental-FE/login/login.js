@@ -44,7 +44,7 @@ function login() {
         },
         data: JSON.stringify(data),
         success: function (data) {
-            localStorage.setItem("token", data.accessToken);
+            localStorage.setItem("token", data.token);
             localStorage.setItem("role",data.roles[0].authority);
 
             if (data.roles[0].authority == "ROLE_PO"){

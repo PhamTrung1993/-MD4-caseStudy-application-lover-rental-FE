@@ -4,9 +4,75 @@
     <meta charset="UTF-8">
     <title>Order</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="order.js"></script>
+    <script type="text/javascript">
+        showAllOrder();
+
+        function addNewOrder() {
+            let startTime = $('#startTime').val();
+            let timeRent = $('#timeRent').val();
+            let status = $('#status').val();
+            let provider_id = $('#provider_id').val();
+            let user_id = $('#user_id').val();
+            let newOrder = {
+                startTime: startTime,
+                timeRent: timeRent,
+                status: status,
+                provider_id: provider_id,
+                user_id: user_id,
+            };
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newOrder),
+                url: "http://localhost:8080/orders",
+                success: showAllOrder
+            });
+            event.preventDefault();
+        }
+
+        function showAllOrder() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/orders",
+                success: function (data) {
+                    let res = '<tr>\n' +
+                        '        <th>STT</th>\n' +
+                        '        <th>Name User</th>\n' +
+                        '        <th>Name Provider</th>\n' +
+                        '        <th>StartTime</th>\n' +
+                        '        <th>Time Rent</th>\n' +
+                        '        <th>Status</th>\n' +
+                        '        <th>Delete</th>\n' +
+                        '    </tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        let order =  data[i];
+                        res += "<tr>\n" +
+                            "    <td>" + (i +1) +   "</td>\n" +
+                            "    <td>" + order.user_id.name  + "</td>\n" +
+                            "    <td>" + order.provider_id.name  + "</td>\n" +
+                            "    <td>" + order.startTime.slice(0,10)  + "</td>\n" +
+                            "    <td>" + order.timeRent  + "</td>\n" +
+                            `    <td>" <a class="changeStatus" onclick='changeStatus($(this))' href ="${order.id}"> Status </a> </td>\n ` +
+
+                            `<td><a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a></td></tr>`;
+                    }
+                    document.getElementById("displayOrder").innerHTML = "<table>" + res + "</table>"
+
+                }
+            })
+        }
+
+    </script>
 </head>
-<body>
+<body onload="showAllOrder()">
+
+
+<div id="displayOrder"></div>
+<p>Đây là order</p>
+
 
 </body>
 </html>
