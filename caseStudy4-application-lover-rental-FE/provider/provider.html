@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
     function getAllProvider(){
+
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/provider/lists",
@@ -13,20 +14,49 @@
                 showAllProvider(data)
             }
         })
+        event.preventDefault();
     }
     function showAllProvider(lists){
         let res = "<tr>\n" +
             "    <td>STT</td>\n" +
             "    <td>Name</td>\n" +
+            "    <td>Avatar</td>\n" +
             "</tr>\n";
         for (let i = 0; i < lists.length; i++) {
             let provider = lists[i];
             res += "<tr>\n" +
                 "    <td>" + (i +1)       +   "</td>\n" +
                 "    <td>" + provider.name  + "</td>\n" +
-                `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${provider.id}">Delete</a></td></tr>`;
+                "    <td><img src='http://localhost:8080/avatar/get/avatar/"+ provider.avatar.name +"' style='height: 100,;width: 100'></td>\n" +
+                `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${provider.id}">Delete</a></td>\n` +
+                `</tr>` ;
         }
-        document.getElementById("display").innerHTML = "<table>" + res + "</table>";
+        document.getElementById("display").innerHTML = `<table>` + res + `</table>`;
+    }
+    function showFormAvatar(providerId){
+        let form = "";
+        form += "<input type=\"file\"\n" +
+            "       id=\"image\" name=\"image\"\n" +
+            "       accept=\"image/png, image/jpeg\"><br>"
+            + "<button onclick=\"saveAvatar("+ providerId +")\">Save</button>"
+        document.getElementById("display").innerHTML = form;
+    }
+    function saveAvatar(providerId){
+        let file = document.getElementById("image");
+        let formData = new FormData();
+        formData.append("image", file)
+        $.ajax({
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'multipart/form-data',
+            },
+            type: "POST",
+            url: "http://localhost:8080/avatar/upload/avatar" + providerId,
+            data: formData,
+            success: function () {
+                alert("done");
+            }
+        })
     }
     function deleteProviderById(a){
         let providerId = a.attr("href");
@@ -35,6 +65,8 @@
             url: `http://localhost:8080/provider/${providerId}`,
             success: function (data) {
                 a.parent().parent().remove();
+                location.reload();
+                getAllProvider();
             }
 
         });
@@ -60,27 +92,17 @@
             }
         })
     }
-    function findService(id) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/serProvider/" +id,
-            success: function (data){
-                return data;
-            }
-        })
-    }
     function createListServiceByCheckbox(){
-        let arrayService = new Array();
+        let array = new Array();
         for (let i = 1; i <= serviceLength(); i++) {
             let id = "service" + i;
             document.getElementById(id).onclick = function (){
                 if (this.checked){
-                    let idService = document.getElementById(id).value;
-                    arrayService.push(findService(idService));
+                    array.push(document.getElementById(id).value);
                 }
             }
         }
-        return arrayService;
+        return array;
     }
     function createCheckboxService(data){
         let checkbox = "";
@@ -119,21 +141,15 @@
             "<br>" +
             "<button onclick=\"saveProvider()\">Save</button>" +
             "<br>" +
-            "<input type=\"hidden\" id=\"userid\" value=\"" + userid + "\">\n"
-            checkboxService();
+            "<input type=\"hidden\" id=\"userId\" value=\"" + userid + "\">\n"
+             checkboxService();
 
         document.getElementById("display").innerHTML = form;
     }
-    function findUser(userid){
-        $.ajax({
-            type: "GET",
-            url: `http://localhost:8080/user/${userid}`,
-            success: function (data){
-                return data;
-            }
-        })
-    }
+
     function saveProvider(){
+        let array = createListServiceByCheckbox();
+        let userId = document.getElementById("userId").value;
         let hobby = document.getElementById("hobby").value;
         let name = document.getElementById("name").value;
         let age = document.getElementById("age").value;
@@ -145,7 +161,6 @@
         let description = document.getElementById("description").value;
         let facebook = document.getElementById("facebook").value;
         let price = document.getElementById("price").value;
-        let userid = document.getElementById("userid").value;
         let nal = {
             hobby: hobby,
             name: name,
@@ -158,11 +173,11 @@
             description: description,
             facebook: facebook,
             price: price,
-            service : createListServiceByCheckbox(),
             status: "active",
             hasBeenHired: 0,
             view: 0,
-            user : findUser(userid)
+            userId: userId,
+            servicesId: array
         }
         $.ajax({
             headers: {
@@ -172,21 +187,22 @@
             type: "POST",
             url: "http://localhost:8080/provider/save",
             data: JSON.stringify(nal),
-            success: getAllProvider(),
-
+            success: function (){
+                location.reload();
+                getAllProvider();
+            },
             error: function (err){
                 console.log(err)
             }
         })
     }
+
     </script>
 </head>
 <body onload="getAllProvider()">
-<button onclick="showFormAddProvider(3)">Add Provider</button>
-    <div id="display"></div>
-
+<button onclick="showFormAddProvider(2)">Add Provider</button>
+<button onclick="showFormAvatar(1)">Up Avatar</button>
 <p>Đây là Provider</p>
-
-
+<div id="display"></div>
 </body>
 <html>
