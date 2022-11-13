@@ -38,26 +38,31 @@
                 type: "GET",
                 url: "http://localhost:8080/orders",
                 success: function (data) {
-                    let res = '<tr>\n' +
-                        '        <th>STT</th>\n' +
-                        '        <th>Name User</th>\n' +
-                        '        <th>Name Provider</th>\n' +
-                        '        <th>StartTime</th>\n' +
-                        '        <th>Time Rent</th>\n' +
-                        '        <th>Status</th>\n' +
-                        '        <th>Delete</th>\n' +
-                        '    </tr>';
+                    let res = `<tr>
+                        <th>STT</th>
+                        <th>Name User</th>
+                        <th>Name Provider</th>
+                        <th>StartTime</th>
+                        <th>Time Rent</th>
+                        <th>Status</th>
+                        <th>Delete</th>
+                    </tr>`;
                     for (let i = 0; i < data.length; i++) {
-                        let order =  data[i];
-                        res += "<tr>\n" +
-                            "    <td>" + (i +1) +   "</td>\n" +
-                            "    <td>" + order.user_id.name  + "</td>\n" +
-                            "    <td>" + order.provider_id.name  + "</td>\n" +
-                            "    <td>" + order.startTime.slice(0,10)  + "</td>\n" +
-                            "    <td>" + order.timeRent  + "</td>\n" +
-                            `    <td>" <a class="changeStatus" onclick='changeStatus($(this))' href ="${order.id}"> Status </a> </td>\n ` +
+                        let order = data[i];
+                        res += `<tr>
+                                <td>${i + 1}</td>
+                                <td>${order.user.userName}</td>
+                                <td>${order.provider.name}</td>
+                                <td>${order.startTime.slice(0, 10)}</td>
+                                <td>${order.timeRent}</td>
+                                <td>
+                                    <a class="changeStatus" onclick='changeStatus($(this))' href ="${order.id}">Status</a>
+                                </td>
+                                <td>
+                                    <a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a>
+                                </td>
+                                </tr>`;
 
-                            `<td><a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a></td></tr>`;
                     }
                     document.getElementById("displayOrder").innerHTML = "<table>" + res + "</table>"
 
