@@ -11,8 +11,6 @@ function showAllProvider(lists){
     let res = "";
     for (let i = 0; i < lists.length; i++) {
         let provider = lists[i];
-        let services = ""
-        for (let j = 0; j < )
         res +=  `<li className="item">
             <div className="col-item">
                 <div className="product-image"><a href="#" title="Sample Product"> <img
@@ -32,22 +30,35 @@ function showAllProvider(lists){
                         <p className="rating-links"><a href="#">1 Review(s)</a> <span className="separator">|</span> <a
                             href="#review-form">Add Your Review</a></p>
                     </div>
-                    <div><tr>Gender: ${provider.gender}</tr>
-                    <tr>Nationality: ${provider.nationality}</tr>
-                    <tr>City: ${provider.city}</tr>
-                     <tr>View : ${provider.view}</tr>
-                     <tr>facbook : ${provider.facebook}</tr>
-                     
+                    <div>
+                    <table>
+                    <tr>
+                    <td>Gender:</td>
+                    <td>${provider.gender}</td>
+                    </tr>
+                    <tr>
+                    <td>Nationality:${provider.nationality}</td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <td>City:</td>
+                    <td>${provider.city}</td>
+                    </tr>
+                    <tr>
+                    <td>View: </td>
+                    <td><${provider.view}/td>
+                    </tr>
+                    <tr>
+                    <td>facbook : </td>
+                    <td>${provider.facebook}</td>
+                    </tr>
+                    </table>                                                          
                         </div>
                     <div className="desc std">
                  </div>
                     <div className="actions">
                         <button className="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Add to Cart</span>
-                        </button>
-                        <span className="add-to-links"> <a title="Add to Wishlist" className="button link-wishlist"
-                                                           href="wishlist.html"><span>Add to Wishlist</span></a> <a
-                            title="Add to Compare" className="button link-compare"
-                            href="compare.html"><span>Add to Compare</span></a> </span></div>
+                        </button>                    
                 </div>
             </div>
         </li>`;
@@ -65,3 +76,13 @@ function rent8FeMale(){
         }
     })
 }
+function searchName(){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/provider/findProviderByFullName",
+        success: function (data){
+            showAllProvider(data)
+        }
+    })
+}
+
