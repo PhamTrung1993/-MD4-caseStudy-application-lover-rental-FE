@@ -59,6 +59,9 @@ function deleteProviderById(a){
             a.parent().parent().remove();
             location.reload();
             getAllProvider();
+        },
+        error: function (){
+            alert("dang co order");
         }
 
     });
@@ -266,21 +269,6 @@ function editProvider(){
             console.log(err)
         }
     })
-}
-function deleteProviderById(a){
-    let providerId = a.attr("href");
-    $.ajax({
-        type: "DELETE",
-        url: `http://localhost:8080/provider/${providerId}`,
-        success: function (data) {
-            a.parent().parent().remove();
-            location.reload();
-            getAllProvider();
-        }
-
-    });
-    //chặn sự kiện mặc định của thẻ
-    event.preventDefault();
 }
 
 function checkboxService(){
