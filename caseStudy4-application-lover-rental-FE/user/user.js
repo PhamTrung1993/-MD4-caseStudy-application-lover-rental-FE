@@ -1,3 +1,9 @@
+let tk = localStorage.getItem("token");
+let rl = localStorage.getItem("role");
+if (tk == null){
+    window.location.href = "login.html"
+}
+
 successHandler();
 function successHandler() {
     $.ajax({
