@@ -1,7 +1,7 @@
 function showMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/male",
+        url: "http://localhost:8080/provider/rentListForGender/nam",
         success: function (data){
             showAllProvider(data)
         }
@@ -46,18 +46,21 @@ function showAllProvider(lists){
                     </tr>
                     <tr>
                     <td>View: </td>
-                    <td><${provider.view}/td>
+                    <td>${provider.view}</td>
                     </tr>
                     <tr>
                     <td>facbook : </td>
                     <td>${provider.facebook}</td>
                     </tr>
+                
                     </table>               
                         </div>
                     <div className="desc std">
                  </div>
                     <div className="actions">
                         <button className="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Match</span>
+                        </button>
+                         <button className="button btn-cart ajx-cart" title="Add to Cart" onclick="detailsProvider(`+ provider.id +`)"><span>Details</span>
                         </button>
                 </div>
             </div>
@@ -70,7 +73,7 @@ function showAllProvider(lists){
 function showWoMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/female",
+        url: "http://localhost:8080/provider/rentListForGender/nu",
         success: function (data){
             showAllProvider(data)
         }
@@ -82,6 +85,15 @@ function showFullList(){
         url: "http://localhost:8080/provider/lists",
         success: function (data){
             showAllProvider(data)
+        }
+    })
+}
+function detailsProvider(providerId){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/provider/" + providerId,
+        success: function (data){
+            showProviderById(data)
         }
     })
 }

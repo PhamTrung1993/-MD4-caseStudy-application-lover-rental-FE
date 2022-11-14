@@ -1,15 +1,16 @@
 
 
-function getAllProvider(){
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/provider/lists",
-        success: function (data){
-            showAllProvider(data)
-        }
-    })
-}
-function showAllProvider(){
+// function getProvider(){
+//     $.ajax({
+//         type: "GET",
+//         url: "http://localhost:8080/provider/1",
+//         success: function (data){
+//             showProviderById(data)
+//         }
+//     })
+// }
+function showProviderById(data){
+
     let res =
         `          
           <div class="new-label new-top-left"> New </div>
@@ -31,15 +32,41 @@ function showAllProvider(){
             <div className="product-next-prev"><a className="product-next" href="#"><span></span></a> <a
                 className="product-prev" href="#"><span></span></a></div>
                 <div className="product-name">
-                <h1>Provider</h1>
+                <h1>${data.name}</h1>
             </div>
             <div className="short-description">
-                <p> good service </p>
+                  <table>
+                    <tr>
+                    <td>Gender:</td>
+                    <td>${data.gender}</td>
+                    </tr>
+                    <tr>
+                    <td>Nationality:</td>
+                    <td>${data.nationality}</td>
+                    </tr>
+                    <tr>
+                    <td>City:</td>
+                    <td>${data.city}</td>
+                    </tr>
+                    <tr>
+                    <td>View: </td>
+                    <td>${data.view}</td>
+                    </tr>
+                    <tr>
+                    <td>facbook : </td>
+                    <td>${data.facebook}</td>
+                    </tr>
+                    <td>View : </td>
+                    <td>${data.view}</td>
+                    </tr>
+                    <td>Hired : </td>
+                    <td>${data.hasBeenHired}</td>
+                    </tr>
             </div>
           </div>
         </div>
        `
 
 
-    document.getElementById("view").innerHTML = res  ;
+    document.getElementById("products-list").innerHTML = res  ;
 }
