@@ -50,11 +50,11 @@ function login() {
             localStorage.setItem("role",data.roles[0].authority);
 
             if (data.roles[0].authority == "ROLE_PO"){
-                location.href = "../po/po.html"
+                location.href = "../user/user.html"
             }else if(data.roles[0].authority == "ROLE_ADMIN"){
-                location.href = "../admin/admin.html"
+                location.href = "../user/user.html"
             }else if(data.roles[0].authority == "ROLE_PROVIDER"){
-                location.href = "../provider/provider.html"
+                location.href = "../user/user.html"
             }else if(data.roles[0].authority == "ROLE_USER"){
                 location.href = "../user.html"
             }else {
