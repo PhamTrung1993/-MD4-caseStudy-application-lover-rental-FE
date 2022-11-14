@@ -20,14 +20,14 @@
         let res = "<tr>\n" +
             "    <td>STT</td>\n" +
             "    <td>Name</td>\n" +
-            "    <td>Avatar</td>\n" +
+            // "    <td>Avatar</td>\n" +
             "</tr>\n";
         for (let i = 0; i < lists.length; i++) {
             let provider = lists[i];
             res += "<tr>\n" +
                 "    <td>" + (i +1)       +   "</td>\n" +
                 "    <td>" + provider.name  + "</td>\n" +
-                "    <td><img src='http://localhost:8080/avatar/get/avatar/"+ provider.avatar.name +"' style='height: 100,;width: 100'></td>\n" +
+                // "    <td><img src='http://localhost:8080/avatar/get/avatar/"+ provider.avatar.name +"' style='height: 100,;width: 100'></td>\n" +
                 `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${provider.id}">Delete</a></td>\n` +
                 `</tr>` ;
         }
