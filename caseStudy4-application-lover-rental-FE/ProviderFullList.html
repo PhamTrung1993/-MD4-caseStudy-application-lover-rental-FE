@@ -25,24 +25,25 @@
 
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Bitter:400,700,400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/owl.carousel.css">
-    <link rel="stylesheet" href="../css/owl.theme.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/font-awesome.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/parallax.js"></script>
-    <script src="../js/common.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
-    <script src="../js/search.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/parallax.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/showList.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+
 
 
 </head>
 
-<body class="cms-index-index">
+<body class="cms-index-index" onload="showFullList()">
 <div class="page">
     <!-- Header -->
     <header class="header-container">
@@ -114,10 +115,10 @@
                     </li>
                     <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a>
                         <ul style="display: none;" class="level1">
-                            <li class="level1 first"><a href="grid.html"><span>User</span></a></li>
+                            <li class="level1 first"><a href="user.html"><span>User</span></a></li>
                             <li class="level1 nav-10-2"> <a href="ProviderFullList.html"> <span>Provider</span> </a> </li>
-                            <li class="level1 nav-10-3"> <a href="product_detail.html"> <span>Order</span> </a> </li>
-                            <li class="level1 nav-10-4"> <a href="shopping_cart.html"> <span>Shopping Cart</span> </a> </li>
+                            <li class="level1 nav-10-3"> <a href="order.html"> <span>Order</span> </a> </li>
+                            <li class="level1 nav-10-4"> <a href="intro.html"> <span>Intro</span> </a> </li>
 
                             <li class="level1"><a href="error404.html"><span>404 Error Page</span></a> </li>
                         </ul>
@@ -129,7 +130,6 @@
                             <li class="level1"><a href="Service.html"><span>Servicer</span></a> </li>
                             <li class="level1"><a href="user.html"><span>Check User</span></a> </li>
                             <li class="level1"><a href="search.html"><span>Advanced Search</span></a> </li>
-                            <li class="level1"><a href="contact_us.html"><span>search</span></a> </li>
                         </ul>
                     </li>
                     <li class="nav-custom-link level0 level-top parent"> <a class="level-top" href="#"><span>Custom</span></a>
@@ -168,8 +168,8 @@
                 </ul>
                 <!-- Search-col -->
                 <div class="search-box">
-                    <input type="text" placeholder="Search entire store here..." value="Search" maxlength="70" name="search" id="search">
-                    <button  class="btn btn-default  search-btn-bg" onclick="searchName()"> <span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+
+                    <a href="search.html" class="btn-primary-lg" style="font-size: 30px">Search</a>
                 </div>
                 <!-- End Search-col -->
             </div>
@@ -196,9 +196,6 @@
                 <section class="col-main col-sm-9 col-sm-push-3">
                     <div class="category-title">
                         <h1>List</h1>
-                    </div>
-                    <div class="category-description std">
-                        <div class="category-image"><img src="images/women_banner.png" alt="cat imges " title="Sofas "> </div>
                     </div>
                     <div class="category-products">
                         <div class="toolbar">
@@ -273,7 +270,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <div class="footer-logo"><a href="index.html" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
+                        <div class="footer-logo"><a href="" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
                         <address>
                             <i class="add-icon">&nbsp;</i>123 Main Street, Anytown, <br>
                             &nbsp;CA 12345  USA

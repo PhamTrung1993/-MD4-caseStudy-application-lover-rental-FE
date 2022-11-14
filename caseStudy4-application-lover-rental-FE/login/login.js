@@ -56,7 +56,7 @@ function login() {
             }else if(data.roles[0].authority == "ROLE_PROVIDER"){
                 location.href = "../provider/provider.html"
             }else if(data.roles[0].authority == "ROLE_USER"){
-                location.href = "../user/user.html"
+                location.href = "../user.html"
             }else {
                 location.href = "login.html"
             }
