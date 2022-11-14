@@ -5,7 +5,26 @@
     <title>Order</title>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/js/ApiService.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="css/fancybox.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="js/prototype.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/toggle.js"></script>
+    <script src="js/pro-img-slider.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/cloud-zoom.js"></script>
+    <script src="js/view.js"></script>
+
     <script type="text/javascript">
         showAllOrder();
 
@@ -106,11 +125,141 @@
     </script>
 </head>
 <body onload="showAllOrder()">
+<div class="page">
+    <!-- Header -->
+    <header class="header-container">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-xs-6">
+
+                        <!-- Header Language -->
+                        <div class="dropdown block-language-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-language dropdown-toggle" href="#"> <img src="images/english.png" alt="language"> English <i class="icon-angle-down"></i> </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/english.png" alt="language"> English </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/francais.png" alt="language"> French </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/german.png" alt="language"> German </a></li>
+                            </ul>
+                        </div>
+
+                        <!-- End Header Language -->
+                        <!-- Header Currency -->
+                        <div class="dropdown block-currency-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-currency dropdown-toggle" href="#"> USD <i class="icon-angle-down"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> $ - Dollar </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> £ - Pound </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> € - Euro </a></li>
+                            </ul>
+                        </div>
+
+                        <!-- End Header Currency -->
+                        <div class="welcome-msg hidden-xs"> Default welcome msg! </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-xs-6">
+
+                        <!-- Header Top Links -->
+                        <div class="toplinks">
+                            <div class="links">
+                                <div class="myaccount"><a title="My Account" href="login.html"><span>My Account</span></a></div>
+                                <div class="check"><a href="checkout.html" title="Checkout"><span>Checkout</span></a></div>
+                                <div class="demo"><a href="#" title="Demo"><span>Demo</span></a></div>
+                                <!-- Header Company -->
+                                <div class="dropdown block-company-wrapper hidden-xs"> <a role="button" data-toggle="dropdown" data-target="#" class="dropdown-toggle" href="#"> <span>Company</span> <i class="icon-angle-down"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="about_us.html"> About Us </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Customer Service </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Privacy Policy </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="site_map.html">Site Map </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Search Terms </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Advanced Search </a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Header Company -->
+                                <div class="login"><a href="login.html"><span>Log In</span></a></div>
+                            </div>
+                        </div>
+                        <!-- End Header Top Links -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!-- end header -->
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <div class="nav-inner">
+
+                <ul id="nav" class="hidden-xs">
+                    <li id="nav-home" class="level0 parent drop-menu active"><a href="home.html"><span>Home</span> </a>
+                    </li>
+                    <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a>
+                        <ul style="display: none;" class="level1">
+                            <li class="level1 first"><a href="user.html"><span>User</span></a></li>
+                            <li class="level1 nav-10-2"> <a href="ProviderFullList.html"> <span>Provider</span> </a> </li>
+                            <li class="level1 nav-10-3"> <a href="order.html"> <span>Order</span> </a> </li>
+                            <li class="level1 nav-10-4"> <a href="Service.html"> <span>Service</span> </a> </li>
+
+                            <li class="level1"><a href="error404.html"><span>404 Error Page</span></a> </li>
+                        </ul>
+                    </li>
+                    <li class="level0 nav-8 level-top"> <a href="maleProviderList.html" class="level-top"> <span>Male</span> </a> </li>
+                    <li class="level0 nav-8 level-top"> <a href="femaleProviderList.html" class="level-top"> <span>FeMale</span> </a> </li>
+                    <li class="level0 parent drop-menu"><a href="#"><span>Features</span> </a>
+                        <ul style="display: none;" class="level1">
+                            <li class="level1"><a href="Service.html"><span>Servicer</span></a> </li>
+                            <li class="level1"><a href="user.html"><span>Check User</span></a> </li>
+                            <li class="level1"><a href="search.html"><span>Advanced Search</span></a> </li>
+                        </ul>
+                    </li>
+                    <li class="nav-custom-link level0 level-top parent"> <a class="level-top" href="#"><span>Custom</span></a>
+                        <div style="display: none; left: 0px;" class="level0-wrapper">
+                            <div class="header-nav-dropdown-wrapper clearer">
+                                <div class="grid12-5">
+                                    <h4 class="heading">HTML5 + CSS3</h4>
+                                    <div class="ccs3-html5-box"><em class="icon-html5">&nbsp;</em> <em class="icon-css3">&nbsp;</em></div>
+                                    <p>Our designed to deliver almost everything you want to do online without requiring additional plugins.CSS3 has been split into "modules".</p>
+                                </div>
+                                <div class="grid12-5">
+                                    <h4 class="heading">Responsive Design</h4>
+                                    <a href="#//">
+                                        <div class="icon-custom-reponsive"></div>
+                                    </a>
+                                    <p>Responsive design is a Web design to provide an optimal navigation with a minimum of resizing, and scrolling across a wide range of devices.</p>
+                                </div>
+                                <div class="grid12-5">
+                                    <h4 class="heading">Google Fonts</h4>
+                                    <a href="#//">
+                                        <div class="icon-custom-google-font"></div>
+                                    </a>
+                                    <p>Our font delivery service is built upon a reliable, global network of servers. Our flexible solution provides multiple implementation options.</p>
+                                </div>
+                                <div class="grid12-5">
+                                    <h4 class="heading">Smart Product Grid</h4>
+                                    <a href="#//">
+                                        <div class="icon-custom-grid"></div>
+                                    </a>
+                                    <p>Smart Product Grid is uses maximum available width of the screen to display content. It can be displayed on any screen or any devices.</p>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Search-col -->
+                <div class="search-box">
+
+                    <a href="search.html" class="btn-primary-lg" style="font-size: 30px">Search</a>
+                </div>
+                <!-- End Search-col -->
+            </div>
+        </div>
+    </nav>
 <button onclick="showAddOrder()">Thêm Order</button>
 
 <div id="displayOrder"></div>
-<p>Đây là order</p>
 
-
+</div>
 </body>
 </html>

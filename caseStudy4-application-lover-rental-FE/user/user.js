@@ -41,7 +41,8 @@ function deleteUser(id){
 }
 
 function showFormAddUser(){
-    let form = "<tr>\n" +
+    let form = "<table>" +
+        "<tr>\n" +
         "            <td>userName:</td>\n" +
         "            <td><input type=\"text\" id=\"userName\" placeholder=\"Username\"></td>\n" +
         "        </tr>\n" +
@@ -77,7 +78,8 @@ function showFormAddUser(){
         "        <tr>\n" +
         "            <td></td>\n" +
         "            <td><input type=\"submit\" value=\"Add\" onclick=\"addNewUser()\"></td>\n" +
-        "        </tr>";
+        "        </tr>" +
+        "           </table>";
     document.getElementById("userList").innerHTML = form;
 }
 function addNewUser(){

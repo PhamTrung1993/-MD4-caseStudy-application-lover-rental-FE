@@ -50,13 +50,13 @@ function login() {
             localStorage.setItem("role",data.roles[0].authority);
 
             if (data.roles[0].authority == "ROLE_PO"){
-                location.href = "../user/user.html"
+                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
             }else if(data.roles[0].authority == "ROLE_ADMIN"){
-                location.href = "../user/user.html"
+                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
             }else if(data.roles[0].authority == "ROLE_PROVIDER"){
-                location.href = "../user/user.html"
+                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
             }else if(data.roles[0].authority == "ROLE_USER"){
-                location.href = "../user.html"
+                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
             }else {
                 location.href = "login.html"
             }

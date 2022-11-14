@@ -1,7 +1,7 @@
 function showMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/male",
+        url: "http://localhost:8080/provider/rentListForGender/nam",
         success: function (data){
             showAllProvider(data)
         }
@@ -46,7 +46,7 @@ function showAllProvider(lists){
                     </tr>
                     <tr>
                     <td>View: </td>
-                    <td><${provider.view}/td>
+                    <td>${provider.view}</td>
                     </tr>
                     <tr>
                     <td>facbook : </td>
@@ -70,7 +70,7 @@ function showAllProvider(lists){
 function showWoMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/female",
+        url: "http://localhost:8080/provider/rentListForGender/nu",
         success: function (data){
             showAllProvider(data)
         }
