@@ -6,8 +6,8 @@ if (tk == null){
 if (rl == "ROLE_ADMIN" && rl == "ROLE_PO"){
     window.location.href = "admin.html"}
 else if (rl == "ROLE_PROVIDER"){
-    window.location.href = "AccessDenied.html"
+    window.location.href = "../AccessDenied.html"
 }
 else if (rl == "ROLE_USER"){
-    window.location.href = "AccessDenied.html"
+    window.location.href = "../AccessDenied.html"
 }

@@ -33,19 +33,19 @@ function Login() {
                 location.href = "../user/user.html"
             }else {
                 alert("lon")
-                location.href = "../user/user.html"
+                location.href = "../login.html"
             }
             console.log(data)
         },
-        // error: function (err) {
-        //     event.preventDefault();
-        //     let mess = `<div class="alert alert-danger alert-dismissible fade show">
-        //       <strong>Lỗi đăng nhập!</strong> Sai địa chỉ email hoặc mật khẩu.
-        //       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        //     </div>`;
-        //     document.getElementById("err-login").innerHTML = mess;
-        //     console.log(err)
-        // }
+        error: function (err) {
+            event.preventDefault();
+            let mess = `<div class="alert alert-danger alert-dismissible fade show">
+              <strong>Lỗi đăng nhập!</strong>Sai tài khoản hoặc mật khẩu.
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>`;
+            document.getElementById("err-login").innerHTML = mess;
+            console.log(err)
+        }
     })
 
 }
