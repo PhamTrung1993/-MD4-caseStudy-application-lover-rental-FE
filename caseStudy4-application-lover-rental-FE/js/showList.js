@@ -1,7 +1,8 @@
+
 function showMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/male",
+        url: "http://localhost:8080/provider/rentListForGender/nam",
         success: function (data){
             showAllProvider(data)
         }
@@ -11,6 +12,7 @@ function showAllProvider(lists){
     let res = "";
     for (let i = 0; i < lists.length; i++) {
         let provider = lists[i];
+        // idProvider = provider.id;
         res +=  `<li className="item">
             <div className="col-item">
                 <div className="product-image"><a href="#" title="Sample Product"> <img
@@ -46,7 +48,7 @@ function showAllProvider(lists){
                     </tr>
                     <tr>
                     <td>View: </td>
-                    <td><${provider.view}/td>
+                    <td>${provider.view}</td>
                     </tr>
                     <tr>
                     <td>facbook : </td>
@@ -59,6 +61,8 @@ function showAllProvider(lists){
                     <div className="actions">
                         <button className="button btn-cart ajx-cart" title="Add to Cart" type="button"><span>Match</span>
                         </button>
+                        <a href="providerdetail.html"><button className="button btn-cart ajx-cart" title="Add to Cart" type="button" onclick="addId(${provider.id})"><span>Detail</span>
+                        </button></a>
                 </div>
             </div>
         </li>`;
@@ -67,10 +71,14 @@ function showAllProvider(lists){
     document.getElementById("products-list").innerHTML = res  ;
 
 }
+// ghi id provider vao localstorage
+function addId(id){
+    localStorage.setItem("providerId",id);
+}
 function showWoMenList(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/rentListForGender/female",
+        url: "http://localhost:8080/provider/rentListForGender/nu",
         success: function (data){
             showAllProvider(data)
         }
@@ -82,6 +90,16 @@ function showFullList(){
         url: "http://localhost:8080/provider/lists",
         success: function (data){
             showAllProvider(data)
+        }
+    })
+
+}
+function showprovider(providerId){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/provider/" + providerId,
+        success: function (data){
+            showProviderId(data)
         }
     })
 }

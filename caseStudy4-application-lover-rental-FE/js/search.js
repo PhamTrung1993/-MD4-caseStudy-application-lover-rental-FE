@@ -77,9 +77,10 @@ function rent8FeMale(){
     })
 }
 function searchName(){
+    let name = document.getElementById("search").value;
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/findProviderByFullName",
+        url: "http://localhost:8080/provider/findProviderByFullName/"+name,
         success: function (data){
             showAllProvider(data)
         }
