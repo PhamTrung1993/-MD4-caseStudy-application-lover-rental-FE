@@ -1,3 +1,14 @@
+let tk = localStorage.getItem("token");
+let rl = localStorage.getItem("role");
+if (tk == null){
+    window.location.href = "login.html"
+}
+if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" && rl == "ROLE_PROVIDER"){
+    window.location.href = "provider.html"}
+else if (rl == "ROLE_USER"){
+    window.location.href = "AccessDenied.html"
+}
+
 function test() {
     let id = document.getElementById("id").value;
     let formData = new FormData();
