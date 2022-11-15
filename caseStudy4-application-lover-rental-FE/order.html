@@ -103,13 +103,24 @@
             })
         }
 
-        function changeStatus() {
-            ApiService.put("/orders/${id}").then(data => {
-                console.log(data)
-                // data.status: "paid"
-                return data
+        function changeStatus(a) {
+            let id = a.attr("href");
+            $.ajax({
+                type: "PUT",
+                url: `http://localhost:8080/orders/${id}`,
+                success: function (data) {
+                    alert("done");
+                    location.reload();
+                    showAllOrder();
+                },
+
+            // ApiService.put("/orders/${id}").then(data => {
+            //     console.log(data)
+            //     // data.status: "paid"
+            //     return data
 
             })
+            event.preventDefault();
 
         }
         function deleteOrderById(a) {
