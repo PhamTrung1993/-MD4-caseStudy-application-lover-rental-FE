@@ -21,6 +21,35 @@ function successHandler() {
         }
     });
 }
+function showOneUser(userId) {
+    $.ajax({
+        type: "GET",
+        //tên API
+        url: "http://localhost:8080/user/"+ userId,
+        //xử lý khi thành công
+        success: function (data) {
+            // hien thi danh sach o day
+            let content = '    <tr>\n' +
+                '        <td>ID</td>\n' +
+                '        <td>Name</td>\n' +
+                '        <td>Email</td>\n' +
+                '        <td>Phone</td>\n' +
+                '        <td>Join Date</td>\n' +
+                '        <td>Role</td>\n' +
+                '        <td>Become Provider</td>\n' +
+                '    </tr>';
+            for (let i = 0; i < data.length; i++) {
+                content += getOneUser(data[i]);
+            }
+            document.getElementById('userList').innerHTML = content;
+        }
+    });
+}
+function getOneUser(user){
+    return `<tr><td >${user.id}</td><td >${user.userName}</td><td >${user.email}</td><td >${user.phone}</td><td >${user.joinDate}</td><td >${user.role.name}</td>` +
+        `<td><button onclick='showFormAddProvider(${user.id})'">Become Provider</button></td>` +
+        `</tr>`;
+}
 function getUser(user) {
     return `<tr><td >${user.id}</td><td >${user.userName}</td><td >${user.email}</td>` +
         `<td><button onclick='deleteUser(${user.id})'">Delete</button></td>` +
@@ -95,7 +124,7 @@ function addNewUser(){
         password: password,
         email: email,
         phone: phone,
-        joinDAte: joinDate,
+        joinDate: joinDate,
         roleId : role,
         vip: vip
     };
