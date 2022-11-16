@@ -76,7 +76,7 @@ function showProviderId(data){
                     <td>${data.hasBeenHired}</td>
                     </tr>
                     <button onclick="showServiceByProvider(getProviderId())">Show Service</button>
-                    
+                    <button onclick="showFormAddOrder()">Match</button>
                     <tr id="showServiceByProvider">
                     
                     </tr>
@@ -88,6 +88,17 @@ function showProviderId(data){
        `
 
     document.getElementById("view").innerHTML = res  ;
+}
+function showFormAddOrder(){
+    let form = `
+                        <br><input type="text" id="user_id" placeholder="ID Khách hàng">
+                        <br><input type="text" id="provider_id" placeholder="ID người Cung Cấp">
+                        <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
+                        <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
+                        <br><button onclick="addNewOrder()">Save</button><br>
+                        `
+
+    document.getElementById("view").innerHTML = form;
 }
 function showServiceByProvider(providerId){
     $.ajax({
