@@ -39,11 +39,12 @@
     <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
     <script src="js/search.js"></script>
     <script src="js/showList.js"></script>
+    <script src="js/serprovider.js"></script>
 
 
 </head>
 
-<body class="cms-index-index" onload="showWoMenList()">
+<body class="cms-index-index" onload="getAllService()">
 <div class="page">
     <!-- Header -->
     <header class="header-container">
@@ -199,9 +200,10 @@
                         <h1>List</h1>
                     </div>
                <div>
-                        <ol id="products-list" class="products-list">
+                   <button onclick="addNewService()"> Add service</button>
+                        <div id="display">
 
-                        </ol>
+                        </div>
                     </div>
                 </section>
             </div>

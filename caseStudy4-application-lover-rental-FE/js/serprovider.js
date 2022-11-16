@@ -48,7 +48,7 @@ function showAllService(lists) {
             `<td><a class="deleteProvider" onclick='deleteServiceById($(this))' href="${serProvider.id}">Delete</a></td>\n` +
             `</tr>`;
     }
-    document.getElementById("display").innerHTML = `<table>` + res + `</table>`;
+    document.getElementById("display").innerHTML = `<table class="table">` + res + `</table>`;
 }
 
 function deleteServiceById(a){
