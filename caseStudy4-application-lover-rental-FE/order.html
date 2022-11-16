@@ -29,17 +29,35 @@
 
         let tk = localStorage.getItem("token");
         let rl = localStorage.getItem("role");
+        let id = localStorage.getItem("id")
         if (tk == null) {
             window.location.href = "login.html"
         }
-        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" ) {
+        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO") {
             window.location.href = "order.html"
-        } else if (rl == "ROLE_USER" && rl == "ROLE_PROVIDER") {
+        } else if (rl == "ROLE_USER" || rl == "ROLE_PROVIDER") {
             window.location.href = "AccessDenied.html"
         }
 
-        logconsole.log(tk, rl);
-        showAllOrder();
+        // showAllOrder2()
+        function checkShow(rl) {
+            if (rl == "ROLE_ADMIN" || rl == "ROLE_PO") {
+                showAllOrder()
+            } else if (rl == "ROLE_PROVIDER") {
+                showAllOrderByProvider(id)
+            } else if (rl == "ROLE_USER") {
+                showAllOrderByUser(id)
+            } else {
+                window.location.href = "AccessDenied.html"
+            }
+
+        }
+
+        //
+        // logconsole.log(tk, rl);
+
+        // showAllOrder();
+        checkShow(rl)
 
         function addNewOrder() {
             // let startTime =  document.getElementById("startTime").value;
@@ -58,7 +76,7 @@
                 timeRent: timeRent,
                 status: status,
                 providerId: providerId,
-                userId: userId,
+                userId: id,
             };
             // ApiService.post("/orders", newOrder).then(showAllOrder)
             $.ajax({
@@ -76,7 +94,7 @@
 
         function showAddOrder(userid) {
             let form = `
-                        <br><input type="number" id="userId" placeholder="ID Khách hàng">
+<!--                        <br><input type="number" id="userId" placeholder="ID Khách hàng">-->
                         <br><input type="number" id="providerId" placeholder="ID người Cung Cấp">
                         <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
                         <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
@@ -86,7 +104,103 @@
             document.getElementById("displayOrder").innerHTML = form;
         }
 
-        function showAllOrder() {
+        function showAllOrder(data) {
+            ApiService.get('/orders').then(data => {
+                let res = `<tr>
+                        <th>STT</th>
+                        <th>Name User</th>
+                        <th>Name Provider</th>
+                        <th>StartTime</th>
+                        <th>Time Rent</th>
+                        <th>Status</th>
+                        <th>Delete</th>
+                    </tr>`;
+                for (let i = 0; i < data.length; i++) {
+                    let order = data[i];
+                    res += `<tr>
+                                <td>${i + 1}</td>
+                                <td>${order.user.userName}</td>
+                                <td>${order.provider.name}</td>
+                                <td>${order.startTime.slice(0, 10)}</td>
+                                <td>${order.timeRent}</td>
+
+                                <td>
+                                    <a class="changeStatus" onclick='changeStatus($(this))' href ="${order.id}">${order.status}</a>
+                                </td>
+                                <td>
+                                    <a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a>
+                                </td>
+                                </tr>`;
+
+                }
+                document.getElementById("displayOrder").innerHTML = "<table border='1px' style='text-align: center'>" + res + "</table>"
+
+            })
+        }
+
+        function showAllOrderByUser() {
+            // let id = a.attr("href");
+
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:8080/user/orders/` + id,
+                success: function (data) {
+                    showAllOrder(data)
+                }
+            })
+        }
+
+        function showAllOrder2(lists) {
+            let res = "";
+            for (let i = 0; i < lists.length; i++) {
+                let order = lists[i];
+                // idProvider = provider.id;
+                res += `
+
+                    <table>
+                    <tr>
+                    <td>Name User</td>
+                    <td>${order.user.userName}</td>
+                    </tr>
+                    <tr>
+                    <td>Name Provider:</td>
+                    <td>${order.provider.name}</td>
+                    </tr>
+                    <tr>
+                    <td>StartTime:</td>
+                    <td>${order.startTime.slice(0, 10)}</td>
+                    </tr>
+                    <tr>
+                    <td>Status: </td>
+                    <td>${order.timeRent}</td>
+                    </tr>
+                    <td>
+                    <td>
+                         <a class="changeStatus" onclick='changeStatus($(this))' href ="${order.id}">${order.status}</a>
+                         </td>
+                    <td>
+                         <a class="deleteOrder" onclick='deleteOrderById($(this))' href="${order.id}">Delete</a>
+                     </td>
+                    </table>      `
+
+
+            }
+            document.getElementById("displayOrder").innerHTML = res;
+
+        }
+
+        function showAllOrderByProvider() {
+            // let id = a.attr("href");
+            $.ajax({
+                type: "GET",
+                url: `http://localhost:8080/provider/orders/` + id,
+                success: function (data) {
+                    showAllOrder(data)
+                }
+            })
+        }
+
+        function showOrderByUser() {
             ApiService.get('/orders').then(data => {
                 console.log(data)
                 let res = `<tr>
@@ -120,29 +234,7 @@
                 document.getElementById("displayOrder").innerHTML = "<table border='1px' style='text-align: center'>" + res + "</table>"
 
             })
-        }
 
-        function showAllOrderByUser(a) {
-            let id = a.attr("href");
-
-            $.ajax({
-                type: "GET",
-                url: `http://localhost:8080/user/orders/${id}`,
-                success: function (data) {
-                    showAllProvider(data)
-                }
-            })
-        }
-
-        function showAllOrderByProvider(a) {
-            let id = a.attr("href");
-            $.ajax({
-                type: "GET",
-                url: `http://localhost:8080/provider/orders/${id}`,
-                success: function (data) {
-                    showAllProvider(data)
-                }
-            })
         }
 
         function changeStatus(a) {
@@ -287,50 +379,58 @@
                     <li class="level0 parent drop-menu"><a href="#"><span>Pages</span> </a>
                         <ul style="display: none;" class="level1">
                             <li class="level1 first"><a href="user.html"><span>User</span></a></li>
-                            <li class="level1 nav-10-2"> <a href="ProviderFullList.html"> <span>Provider</span> </a> </li>
-                            <li class="level1 nav-10-3"> <a href="order.html"> <span>Order</span> </a> </li>
-                            <li class="level1 nav-10-4"> <a href="Service.html"> <span>Service</span> </a> </li>
+                            <li class="level1 nav-10-2"><a href="ProviderFullList.html"> <span>Provider</span> </a></li>
+                            <li class="level1 nav-10-3"><a href="order.html"> <span>Order</span> </a></li>
+                            <li class="level1 nav-10-4"><a href="Service.html"> <span>Service</span> </a></li>
 
-                            <li class="level1"><a href="error404.html"><span>404 Error Page</span></a> </li>
+                            <li class="level1"><a href="error404.html"><span>404 Error Page</span></a></li>
                         </ul>
                     </li>
-                    <li class="level0 nav-8 level-top"> <a href="maleProviderList.html" class="level-top"> <span>Male</span> </a> </li>
-                    <li class="level0 nav-8 level-top"> <a href="femaleProviderList.html" class="level-top"> <span>FeMale</span> </a> </li>
+                    <li class="level0 nav-8 level-top"><a href="maleProviderList.html" class="level-top">
+                        <span>Male</span> </a></li>
+                    <li class="level0 nav-8 level-top"><a href="femaleProviderList.html" class="level-top">
+                        <span>FeMale</span> </a></li>
                     <li class="level0 parent drop-menu"><a href="#"><span>Features</span> </a>
                         <ul style="display: none;" class="level1">
-                            <li class="level1"><a href="Service.html"><span>Servicer</span></a> </li>
-                            <li class="level1"><a href="user.html"><span>Check User</span></a> </li>
-                            <li class="level1"><a href="search.html"><span>Advanced Search</span></a> </li>
+                            <li class="level1"><a href="Service.html"><span>Servicer</span></a></li>
+                            <li class="level1"><a href="user.html"><span>Check User</span></a></li>
+                            <li class="level1"><a href="search.html"><span>Advanced Search</span></a></li>
                         </ul>
                     </li>
-                    <li class="nav-custom-link level0 level-top parent"> <a class="level-top" href="#"><span>Custom</span></a>
+                    <li class="nav-custom-link level0 level-top parent"><a class="level-top"
+                                                                           href="#"><span>Custom</span></a>
                         <div style="display: none; left: 0px;" class="level0-wrapper">
                             <div class="header-nav-dropdown-wrapper clearer">
                                 <div class="grid12-5">
                                     <h4 class="heading">HTML5 + CSS3</h4>
-                                    <div class="ccs3-html5-box"><em class="icon-html5">&nbsp;</em> <em class="icon-css3">&nbsp;</em></div>
-                                    <p>Our designed to deliver almost everything you want to do online without requiring additional plugins.CSS3 has been split into "modules".</p>
+                                    <div class="ccs3-html5-box"><em class="icon-html5">&nbsp;</em> <em
+                                            class="icon-css3">&nbsp;</em></div>
+                                    <p>Our designed to deliver almost everything you want to do online without requiring
+                                        additional plugins.CSS3 has been split into "modules".</p>
                                 </div>
                                 <div class="grid12-5">
                                     <h4 class="heading">Responsive Design</h4>
                                     <a href="#//">
                                         <div class="icon-custom-reponsive"></div>
                                     </a>
-                                    <p>Responsive design is a Web design to provide an optimal navigation with a minimum of resizing, and scrolling across a wide range of devices.</p>
+                                    <p>Responsive design is a Web design to provide an optimal navigation with a minimum
+                                        of resizing, and scrolling across a wide range of devices.</p>
                                 </div>
                                 <div class="grid12-5">
                                     <h4 class="heading">Google Fonts</h4>
                                     <a href="#//">
                                         <div class="icon-custom-google-font"></div>
                                     </a>
-                                    <p>Our font delivery service is built upon a reliable, global network of servers. Our flexible solution provides multiple implementation options.</p>
+                                    <p>Our font delivery service is built upon a reliable, global network of servers.
+                                        Our flexible solution provides multiple implementation options.</p>
                                 </div>
                                 <div class="grid12-5">
                                     <h4 class="heading">Smart Product Grid</h4>
                                     <a href="#//">
                                         <div class="icon-custom-grid"></div>
                                     </a>
-                                    <p>Smart Product Grid is uses maximum available width of the screen to display content. It can be displayed on any screen or any devices.</p>
+                                    <p>Smart Product Grid is uses maximum available width of the screen to display
+                                        content. It can be displayed on any screen or any devices.</p>
                                 </div>
                                 <br>
                             </div>
@@ -348,7 +448,7 @@
     </nav>
     <!-- end nav -->
 
-    <button onclick="showAddOrder()">Thêm Order</button>
+<!--    <button onclick="showAddOrder()">Thêm Order</button>-->
 
     <div id="displayOrder" style="margin: 0 50% 0 50%;"></div>
 
@@ -358,13 +458,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <div class="footer-logo"><a href="" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
+                        <div class="footer-logo"><a href="" title="Logo"><img src="images/logo.png" alt="logo"></a>
+                        </div>
                         <address>
                             <i class="add-icon">&nbsp;</i>123 Main Street, Anytown, <br>
-                            &nbsp;CA 12345  USA
+                            &nbsp;CA 12345 USA
                         </address>
                         <div class="phone-footer"><i class="phone-icon">&nbsp;</i> +1 800 123 1234</div>
-                        <div class="email-footer"><i class="email-icon">&nbsp;</i> <a href="mailto:support@magikcommerce.com">support@magikcommerce.com</a> </div>
+                        <div class="email-footer"><i class="email-icon">&nbsp;</i> <a
+                                href="mailto:support@magikcommerce.com">support@magikcommerce.com</a></div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
                         <h4>Shopping Guide</h4>
@@ -412,7 +514,9 @@
 </div>
 <div class="help_slider">
     <div class="text alignleft">Need Help?</div>
-    <div class="icons"> <a class="show_hide" id="questionbox-side-phonebutton" href="javascript:void(0)"><i class="icon-phones">&nbsp;</i></a> <a class="show_hide1" id="questionbox-side-emailbutton" href="javascript:void(0)"><i class="icon-email">&nbsp;</i></a> </div>
+    <div class="icons"><a class="show_hide" id="questionbox-side-phonebutton" href="javascript:void(0)"><i
+            class="icon-phones">&nbsp;</i></a> <a class="show_hide1" id="questionbox-side-emailbutton"
+                                                  href="javascript:void(0)"><i class="icon-email">&nbsp;</i></a></div>
 </div>
 <div id="hideShow" class="right-side-content" style="display: none;">
     <!--Contact Static Block -->
@@ -422,7 +526,7 @@
         <p class="textcenter"> Want to speak to someone? We're here 24/7 to answer any questions. Just call!<br>
             <br>
             <span class="phone-number"> +1 800 123 1234</span></p>
-        <a id="hideDiv" class="slider-close" href="javascript:void(0)"></a> </div>
+        <a id="hideDiv" class="slider-close" href="javascript:void(0)"></a></div>
     <div class="slider-email hidden">
         <h2 class="">Let us know how we can help you.</h2>
         <form action="#" enctype="application/x-www-form-urlencoded" method="post" id="form-contact-help_slider">
@@ -468,22 +572,27 @@
     <div class="right-side-content hidden1">
         <div class="slider-email active">
             <div id="messages_product_view"></div>
-            <div id="formSuccess" style="display:none;">Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.</div>
+            <div id="formSuccess" style="display:none;">Your inquiry was submitted and will be responded to as soon as
+                possible. Thank you for contacting us.
+            </div>
             <form id="contactForm1" method="post">
                 <div class="column sixty">
                     <h2>TALK TO US</h2>
                     <ul>
                         <li>
                             <label>Name<em class="required">*</em></label>
-                            <input name="name" id="name" title="Name" value="" class="input-text required-entry" type="text">
+                            <input name="name" id="name" title="Name" value="" class="input-text required-entry"
+                                   type="text">
                         </li>
                         <li>
                             <label>Email<em class="required">*</em></label>
-                            <input name="email" id="email" title="Email" value="" class="input-text required-entry validate-email" type="text">
+                            <input name="email" id="email" title="Email" value=""
+                                   class="input-text required-entry validate-email" type="text">
                         </li>
                         <li>
                             <label>Telephone</label>
-                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text" type="text">
+                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text"
+                                   type="text">
                         </li>
                     </ul>
                     <p class="required">* Required Fields</p>
@@ -492,18 +601,19 @@
                 <div class="column fourty last">
                     <div class="padding">
                         <label>Comment<em class="required">*</em></label>
-                        <textarea name="comment" title="Comment" class="required-entry input-text" cols="5" rows="3"></textarea>
+                        <textarea name="comment" title="Comment" class="required-entry input-text" cols="5"
+                                  rows="3"></textarea>
                         <div class="textright">
                             <input type="text" name="hideit" value="" style="display:none !important;">
                             <button type="submit" title="Submit" class="button btn-sent"><span>Submit</span></button>
-                            <img src="images/mgkloading1.html" alt="loader" id="loader" style="display:none;"> </div>
+                            <img src="images/mgkloading1.html" alt="loader" id="loader" style="display:none;"></div>
                         <!--textright-->
                     </div>
                     <!--padding-->
                 </div>
                 <!--column fourty last-->
             </form>
-            <a href="javascript:void(0)" id="hideDiv1" class="slider-close"></a> </div>
+            <a href="javascript:void(0)" id="hideDiv1" class="slider-close"></a></div>
         <!--slider-email active-->
     </div>
     <!--right-side-content hidden1-->
