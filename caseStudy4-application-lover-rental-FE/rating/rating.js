@@ -7,20 +7,18 @@ function showRating(providerId){
         success: function (data) {
             // hien thi danh sach o day
             let content = '    <tr>\n' +
-                '        <td>ID</td>\n' +
-                '        <td>Comment</td>\n' +
-                '        <td>Provider</td>\n' +
-                '        <td>Delete</td>\n' +
+                '        <td></td>\n' +
+                '        <td></td>\n' +
                 '    </tr>';
             for (let i = 0; i < data.length; i++) {
                 content += getRating(data[i]);
             }
-            document.getElementById('rating').innerHTML = content;
+            document.getElementById('commentOfProvider').innerHTML =  content ;
         }
     });
 }
 function getRating(rating){
-    return `<tr><td >${rating.id}</td><td >${rating.comment}</td><td >${rating.provider.name}</td>` +
+    return `<tr><td >${rating.comment}</td><td >${rating.provider.name}</td>` +
         `<td><button onclick='deleteRating(${rating.id})'">Delete</button></td>` +
         `</tr>`;
 }
@@ -41,7 +39,7 @@ function deleteRating(ratingId){
     event.preventDefault();
 }
 function addRating(providerId){
-    let comment = document.getElementById("comment").value;
+    let comment = document.getElementById("review_field").value;
     let nal = {
         comment: comment,
         providerId: providerId
@@ -62,4 +60,8 @@ function addRating(providerId){
             alert("loi");
         }
     })
+}
+function getProviderId(){
+    let a = localStorage.getItem("providerId");
+    return a;
 }
