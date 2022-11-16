@@ -28,7 +28,7 @@
                 //tên API
                 url: "http://localhost:8080/serProvider",
                 //xử lý khi thành công
-                success: getAllProvider()
+                success: showAllService()
 
             });
             //chặn sự kiện mặc định của thẻ
@@ -40,7 +40,7 @@
                 type: "GET",
                 url: "http://localhost:8080/serProvider/lists",
                 success: function (data){
-                    showAllProvider(data)
+                    showAllService(data)
                 }
             })
             event.preventDefault();
@@ -55,7 +55,7 @@
                 res += "<tr>\n" +
                     "    <td>" + (i + 1) + "</td>\n" +
                     "    <td>" + serProvider.name + "</td>\n" +
-                    `<td><a class="deleteProvider" onclick='deleteProviderById($(this))' href="${serProvider.id}">Delete</a></td>\n` +
+                    `<td><a class="deleteProvider" onclick='deleteServiceById($(this))' href="${serProvider.id}">Delete</a></td>\n` +
                     `</tr>`;
             }
             document.getElementById("display").innerHTML = `<table>` + res + `</table>`;
@@ -80,7 +80,7 @@
 </head>
 <body onload="getAllService()">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        New status
+        New Service
     </button>
     <p>List Service</p>
     <div id="display"></div>
