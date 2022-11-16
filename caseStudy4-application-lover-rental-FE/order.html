@@ -5,7 +5,7 @@
     <title>Order</title>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/js/ApiService.js"></script>
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
@@ -29,12 +29,12 @@
 
         let tk = localStorage.getItem("token");
         let rl = localStorage.getItem("role");
-        if (tk == null){
+        if (tk == null) {
             window.location.href = "login.html"
         }
-        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" && rl == "ROLE_PROVIDER"){
-            window.location.href = "provider.html"}
-        else if (rl == "ROLE_USER"){
+        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" ) {
+            window.location.href = "order.html"
+        } else if (rl == "ROLE_USER" && rl == "ROLE_PROVIDER") {
             window.location.href = "AccessDenied.html"
         }
 
@@ -42,18 +42,17 @@
         showAllOrder();
 
         function addNewOrder() {
-            let startTime =  document.getElementById("startTime").value;
-            let timeRent =  document.getElementById("timeRent233").value;
-            let status =  document.getElementById("status").value;
-            let providerId =  document.getElementById("providerId").value;
-            let userId =  document.getElementById("userId").value;
+            // let startTime =  document.getElementById("startTime").value;
+            // let timeRent =  document.getElementById("timeRent").value;
+            // let status =  document.getElementById("status").value;
+            // let providerId =  document.getElementById("providerId").value;
+            // let userId =  document.getElementById("userId").value;
 
-            //
-            // let startTime = $('#startTime').val();
-            // let timeRent = $('#timeRent').val();
-            // let status = $('#status').val();
-            // let provider_id = $('#provider_id').val();
-            // let user_id = $('#user_id').val();
+            let startTime = $('#startTime').val();
+            let timeRent = $('#timeRent').val();
+            let status = $('#status').val();
+            let providerId = $('#providerId').val();
+            let userId = $('#userId').val();
             let newOrder = {
                 startTime: startTime,
                 timeRent: timeRent,
@@ -118,24 +117,29 @@
                                 </tr>`;
 
                 }
-                document.getElementById("displayOrder").innerHTML = "<table>" + res + "</table>"
+                document.getElementById("displayOrder").innerHTML = "<table border='1px' style='text-align: center'>" + res + "</table>"
 
             })
         }
-        function showAllOrderByUser() {
+
+        function showAllOrderByUser(a) {
+            let id = a.attr("href");
+
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/user/orders/" + id,
-                success: function (data){
+                url: `http://localhost:8080/user/orders/${id}`,
+                success: function (data) {
                     showAllProvider(data)
                 }
             })
         }
-        function showAllOrderByProvider() {
+
+        function showAllOrderByProvider(a) {
+            let id = a.attr("href");
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/provider/orders/" + id,
-                success: function (data){
+                url: `http://localhost:8080/provider/orders/${id}`,
+                success: function (data) {
                     showAllProvider(data)
                 }
             })
@@ -147,20 +151,21 @@
                 type: "PUT",
                 url: `http://localhost:8080/orders/${id}`,
                 success: function (data) {
-                    alert("done");
+                    alert("Bạn muốn thanh toán");
                     location.reload();
                     showAllOrder();
                 },
 
-            // ApiService.put("/orders/${id}").then(data => {
-            //     console.log(data)
-            //     // data.status: "paid"
-            //     return data
+                // ApiService.put("/orders/${id}").then(data => {
+                //     console.log(data)
+                //     // data.status: "paid"
+                //     return data
 
             })
             event.preventDefault();
 
         }
+
         function deleteOrderById(a) {
             let id = a.attr("href");
             $.ajax({
@@ -171,7 +176,7 @@
                     location.reload();
                     showAllOrder();
                 },
-                error: function (){
+                error: function () {
                     alert("dang co order");
                 }
 
@@ -197,17 +202,26 @@
                     <div class="col-lg-5 col-md-5 col-xs-6">
 
                         <!-- Header Language -->
-                        <div class="dropdown block-language-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-language dropdown-toggle" href="#"> <img src="images/english.png" alt="language"> English <i class="icon-angle-down"></i> </a>
+                        <div class="dropdown block-language-wrapper"><a role="button" data-toggle="dropdown"
+                                                                        data-target="#"
+                                                                        class="block-language dropdown-toggle" href="#">
+                            <img src="images/english.png" alt="language"> English <i class="icon-angle-down"></i> </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/english.png" alt="language"> English </a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/francais.png" alt="language"> French </a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="images/german.png" alt="language"> German </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img
+                                        src="images/english.png" alt="language"> English </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img
+                                        src="images/francais.png" alt="language"> French </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img
+                                        src="images/german.png" alt="language"> German </a></li>
                             </ul>
                         </div>
 
                         <!-- End Header Language -->
                         <!-- Header Currency -->
-                        <div class="dropdown block-currency-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-currency dropdown-toggle" href="#"> USD <i class="icon-angle-down"></i></a>
+                        <div class="dropdown block-currency-wrapper"><a role="button" data-toggle="dropdown"
+                                                                        data-target="#"
+                                                                        class="block-currency dropdown-toggle" href="#">
+                            USD <i class="icon-angle-down"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> $ - Dollar </a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> £ - Pound </a></li>
@@ -216,25 +230,38 @@
                         </div>
 
                         <!-- End Header Currency -->
-                        <div class="welcome-msg hidden-xs"> Default welcome msg! </div>
+                        <div class="welcome-msg hidden-xs"> Default welcome msg!</div>
                     </div>
                     <div class="col-lg-7 col-md-7 col-xs-6">
 
                         <!-- Header Top Links -->
                         <div class="toplinks">
                             <div class="links">
-                                <div class="myaccount"><a title="My Account" href="login.html"><span>My Account</span></a></div>
-                                <div class="check"><a href="checkout.html" title="Checkout"><span>Checkout</span></a></div>
+                                <div class="myaccount"><a title="My Account"
+                                                          href="login.html"><span>My Account</span></a></div>
+                                <div class="check"><a href="checkout.html" title="Checkout"><span>Checkout</span></a>
+                                </div>
                                 <div class="demo"><a href="#" title="Demo"><span>Demo</span></a></div>
                                 <!-- Header Company -->
-                                <div class="dropdown block-company-wrapper hidden-xs"> <a role="button" data-toggle="dropdown" data-target="#" class="dropdown-toggle" href="#"> <span>Company</span> <i class="icon-angle-down"></i></a>
+                                <div class="dropdown block-company-wrapper hidden-xs"><a role="button"
+                                                                                         data-toggle="dropdown"
+                                                                                         data-target="#"
+                                                                                         class="dropdown-toggle"
+                                                                                         href="#"> <span>Company</span>
+                                    <i class="icon-angle-down"></i></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="about_us.html"> About Us </a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Customer Service </a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Privacy Policy </a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="site_map.html">Site Map </a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Search Terms </a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Advanced Search </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="about_us.html">
+                                            About Us </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Customer
+                                            Service </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Privacy
+                                            Policy </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="site_map.html">Site
+                                            Map </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Search
+                                            Terms </a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Advanced
+                                            Search </a></li>
                                     </ul>
                                 </div>
                                 <!-- End Header Company -->
@@ -319,10 +346,170 @@
             </div>
         </div>
     </nav>
-<button onclick="showAddOrder()">Thêm Order</button>
+    <!-- end nav -->
 
-<div id="displayOrder"></div>
+    <button onclick="showAddOrder()">Thêm Order</button>
 
+    <div id="displayOrder" style="margin: 0 50% 0 50%;"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <div class="footer-logo"><a href="" title="Logo"><img src="images/logo.png" alt="logo"></a></div>
+                        <address>
+                            <i class="add-icon">&nbsp;</i>123 Main Street, Anytown, <br>
+                            &nbsp;CA 12345  USA
+                        </address>
+                        <div class="phone-footer"><i class="phone-icon">&nbsp;</i> +1 800 123 1234</div>
+                        <div class="email-footer"><i class="email-icon">&nbsp;</i> <a href="mailto:support@magikcommerce.com">support@magikcommerce.com</a> </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                        <h4>Shopping Guide</h4>
+
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                        <h4>Style Advisor</h4>
+
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-3 col-xs-12">
+                        <h4>Information</h4>
+
+                    </div>
+                    <div class="col-lg-3 col-md-8 col-sm-9 col-xs-12">
+                        <div class="block-subscribe">
+                            <h4>Sign up for emails</h4>
+
+                        </div>
+                        <div class="social">
+                            <h4>Follow Us</h4>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12 coppyright"> &copy; 2015 Magikcommerce. All Rights Reserved.</div>
+                    <div class="col-sm-8 col-xs-12 company-links">
+                        <ul class="links">
+                            <li><a href="#" title="Magento Themes">Magento Themes</a></li>
+                            <li><a href="#" title="Premium Themes">Premium Themes</a></li>
+                            <li><a href="#" title="Responsive Themes">Responsive Themes</a></li>
+                            <li class="last"><a href="#" title="Magento Extensions">Magento Extensions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+</div>
+<div class="help_slider">
+    <div class="text alignleft">Need Help?</div>
+    <div class="icons"> <a class="show_hide" id="questionbox-side-phonebutton" href="javascript:void(0)"><i class="icon-phones">&nbsp;</i></a> <a class="show_hide1" id="questionbox-side-emailbutton" href="javascript:void(0)"><i class="icon-email">&nbsp;</i></a> </div>
+</div>
+<div id="hideShow" class="right-side-content" style="display: none;">
+    <!--Contact Static Block -->
+    <div class="slider-phone active">
+        <h2 class="">Talk To Us</h2>
+        <h3 class="">Available 24/7</h3>
+        <p class="textcenter"> Want to speak to someone? We're here 24/7 to answer any questions. Just call!<br>
+            <br>
+            <span class="phone-number"> +1 800 123 1234</span></p>
+        <a id="hideDiv" class="slider-close" href="javascript:void(0)"></a> </div>
+    <div class="slider-email hidden">
+        <h2 class="">Let us know how we can help you.</h2>
+        <form action="#" enctype="application/x-www-form-urlencoded" method="post" id="form-contact-help_slider">
+            <div class="column sixty">
+                <div class="">
+                    <ul>
+                        <li>
+                            <label>First Name</label>
+                            <input type="text" name="FirstName" class="required-entry">
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <label>Last Name</label>
+                            <input type="text" name="LastName" class="required-entry">
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <label>Email Address</label>
+                            <input type="email" name="Email" class="required-entry">
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <label>Phone Number</label>
+                            <input type="text" name="Phone">
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column fourty last">
+                <div class="padding">
+                    <textarea name="Contact_Form_Message__c" class="required-entry">How can we help you?</textarea>
+                    <div class="textright">
+                        <button class="button btn-sent" title="Add to Cart" type="button"><span>Send</span></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="clearfix"></div>
+        <a class="slider-close" href="#"></a></div>
+</div>
+<div id="hideShow1" style="display: none;">
+    <div class="right-side-content hidden1">
+        <div class="slider-email active">
+            <div id="messages_product_view"></div>
+            <div id="formSuccess" style="display:none;">Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.</div>
+            <form id="contactForm1" method="post">
+                <div class="column sixty">
+                    <h2>TALK TO US</h2>
+                    <ul>
+                        <li>
+                            <label>Name<em class="required">*</em></label>
+                            <input name="name" id="name" title="Name" value="" class="input-text required-entry" type="text">
+                        </li>
+                        <li>
+                            <label>Email<em class="required">*</em></label>
+                            <input name="email" id="email" title="Email" value="" class="input-text required-entry validate-email" type="text">
+                        </li>
+                        <li>
+                            <label>Telephone</label>
+                            <input name="telephone" id="telephone" title="Telephone" value="" class="input-text" type="text">
+                        </li>
+                    </ul>
+                    <p class="required">* Required Fields</p>
+                </div>
+                <!--column sixty-->
+                <div class="column fourty last">
+                    <div class="padding">
+                        <label>Comment<em class="required">*</em></label>
+                        <textarea name="comment" title="Comment" class="required-entry input-text" cols="5" rows="3"></textarea>
+                        <div class="textright">
+                            <input type="text" name="hideit" value="" style="display:none !important;">
+                            <button type="submit" title="Submit" class="button btn-sent"><span>Submit</span></button>
+                            <img src="images/mgkloading1.html" alt="loader" id="loader" style="display:none;"> </div>
+                        <!--textright-->
+                    </div>
+                    <!--padding-->
+                </div>
+                <!--column fourty last-->
+            </form>
+            <a href="javascript:void(0)" id="hideDiv1" class="slider-close"></a> </div>
+        <!--slider-email active-->
+    </div>
+    <!--right-side-content hidden1-->
+</div>
+
+<!-- JavaScript -->
 </div>
 </body>
 </html>
