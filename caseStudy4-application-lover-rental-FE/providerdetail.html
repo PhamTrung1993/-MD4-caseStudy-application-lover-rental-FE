@@ -39,6 +39,7 @@
   <script src="js/cloud-zoom.js"></script>
   <script src="js/view.js"></script>
   <script src="js/showList.js"></script>
+  <script src="rating/rating.js"></script>
 </head>
 <body class="cms-index-index">
 <div class="page">
@@ -203,13 +204,19 @@
         </div>
       </div>
     </div>
+    <div>
+      <button onclick="showRating(getProviderId())">Comment</button>
+      <table id="commentOfProvider" class="table">
+
+      </table>
+    </div>
     <div class="box-collateral box-reviews" id="customer-reviews">
       <div class="page-title">
         <h2>Reviews</h2>
       </div>
       <div class="box-reviews1">
         <div class="form-add">
-          <form id="review-form" method="post" action="http://www.magikcommerce.com/review/product/post/id/176/">
+          <form id="review-form" method="post">
             <h3>Write Your Own Review</h3>
             <fieldset>
               <h4>How do you rate this product? <em class="required">*</em></h4>
@@ -287,7 +294,7 @@
                   </li>
                 </ul>
                 <div class="buttons-set">
-                  <button class="button submit" title="Submit Review" type="submit"><span>Submit Review</span></button>
+                  <button class="button submit" title="Submit Review" type="submit" onclick="addRating(getProviderId())"><span>Submit Review</span></button>
                 </div>
               </div>
             </fieldset>

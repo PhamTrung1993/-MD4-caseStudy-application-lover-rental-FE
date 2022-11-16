@@ -24,17 +24,16 @@ function Login() {
             localStorage.setItem("id",data.id);
 
             if (data.roles[0].authority == "ROLE_PO"){
-
-                location.href = "ProviderFullList.html"
+                location.href = "caseStudy4-application-lover-rental-FE/provider/provider.html"
             }else if(data.roles[0].authority == "ROLE_ADMIN"){
-                location.href = "ProviderFullList.html"
+                location.href = "caseStudy4-application-lover-rental-FE/provider/provider.html"
             }else if(data.roles[0].authority == "ROLE_PROVIDER"){
-                location.href = "ProviderFullList.html"
+                location.href = "caseStudy4-application-lover-rental-FE/provider/provider.html"
             }else if(data.roles[0].authority == "ROLE_USER"){
-                location.href = "ProviderFullList.html"
+                location.href = "caseStudy4-application-lover-rental-FE/provider/provider.html"
             }else {
                 alert("lon")
-                location.href = "../login.html"
+                location.href = "caseStudy4-application-lover-rental-FE/user.html"
             }
             console.log(data)
         },

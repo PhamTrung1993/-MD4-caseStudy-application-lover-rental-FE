@@ -1,4 +1,3 @@
-
 getProviderById();
 // function getAllProvider(providerId){
 //     $.ajax({
@@ -17,7 +16,6 @@ function getProviderById(){
         url: "http://localhost:8080/provider/"+idNext,
         success: function (data){
             showProviderId(data);
-            localStorage.clear();
         }
     })
 }
@@ -44,12 +42,66 @@ function showProviderId(data){
                 <h1>${data.name}</h1>
             </div>
             <div className="short-description">
-                <p> good service </p>
+                <table>
+                    <tr>
+                    <td>Gender:</td>
+                    <td>${data.gender}</td>
+                    </tr>
+                    <tr>
+                    <td>Nationality:${data.nationality}</td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <td>City:</td>
+                    <td>${data.city}</td>
+                    </tr>
+                    <tr>
+                    <td>View: </td>
+                    <td>${data.view}</td>
+                    </tr>
+                    <tr>
+                    <td>facbook : </td>
+                    <td>${data.facebook}</td>
+                    </tr>
+                    <tr>
+                    <td>Weigh : </td>
+                    <td>${data.weight}</td>
+                    </tr>
+                    <tr>
+                    <td>Height : </td>
+                    <td>${data.height}</td>
+                    </tr>
+                    <tr>
+                    <td>Has been hired : </td>
+                    <td>${data.hasBeenHired}</td>
+                    </tr>
+                    <button onclick="showServiceByProvider(getProviderId())">Show Service</button>
+                    
+                    <tr id="showServiceByProvider">
+                    
+                    </tr>
+                        
+                    </table> 
             </div>
           </div>
         </div>
        `
 
-
     document.getElementById("view").innerHTML = res  ;
+}
+function showServiceByProvider(providerId){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/provider/serProvidedByUser/"+providerId,
+        success: function (data){
+            let content ="";
+            for (let i = 0; i < data.length; i++) {
+                content += showOneService(data[i]);
+            }
+            document.getElementById('showServiceByProvider').innerHTML = "<td>Service:</td><td>" + content + "</td>";
+        }
+    })
+}
+function showOneService(lists){
+    return `${lists.name}` + "," ;
 }
