@@ -26,39 +26,59 @@
     <script src="js/view.js"></script>
 
     <script type="text/javascript">
+
+        let tk = localStorage.getItem("token");
+        let rl = localStorage.getItem("role");
+        if (tk == null){
+            window.location.href = "login.html"
+        }
+        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" && rl == "ROLE_PROVIDER"){
+            window.location.href = "provider.html"}
+        else if (rl == "ROLE_USER"){
+            window.location.href = "AccessDenied.html"
+        }
+
+        logconsole.log(tk, rl);
         showAllOrder();
 
         function addNewOrder() {
-            let startTime = $('#startTime').val();
-            let timeRent = $('#timeRent').val();
-            let status = $('#status').val();
-            let provider_id = $('#provider_id').val();
-            let user_id = $('#user_id').val();
+            let startTime =  document.getElementById("startTime").value;
+            let timeRent =  document.getElementById("timeRent233").value;
+            let status =  document.getElementById("status").value;
+            let providerId =  document.getElementById("providerId").value;
+            let userId =  document.getElementById("userId").value;
+
+            //
+            // let startTime = $('#startTime').val();
+            // let timeRent = $('#timeRent').val();
+            // let status = $('#status').val();
+            // let provider_id = $('#provider_id').val();
+            // let user_id = $('#user_id').val();
             let newOrder = {
                 startTime: startTime,
                 timeRent: timeRent,
                 status: status,
-                provider_id: provider_id,
-                user_id: user_id,
+                providerId: providerId,
+                userId: userId,
             };
-            ApiService.post("/orders", newOrder).then(showAllOrder)
-            // $.ajax({
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     },
-            //     type: "POST",
-            //     data: JSON.stringify(newOrder),
-            //     url: "http://localhost:8080/orders",
-            //     success: showAllOrder
-            // });
+            // ApiService.post("/orders", newOrder).then(showAllOrder)
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newOrder),
+                url: "http://localhost:8080/orders",
+                success: showAllOrder
+            });
             event.preventDefault();
         }
 
         function showAddOrder(userid) {
             let form = `
-                        <br><input type="number" id="user.userName" placeholder="ID Khách hàng">
-                        <br><input type="number" id="provider.name" placeholder="ID người Cung Cấp">
+                        <br><input type="number" id="userId" placeholder="ID Khách hàng">
+                        <br><input type="number" id="providerId" placeholder="ID người Cung Cấp">
                         <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
                         <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
                         <br><button onclick="addNewOrder()">Save</button><br><input type="hidden" id="userId" value="${userid}">
@@ -100,6 +120,24 @@
                 }
                 document.getElementById("displayOrder").innerHTML = "<table>" + res + "</table>"
 
+            })
+        }
+        function showAllOrderByUser() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/user/orders/" + id,
+                success: function (data){
+                    showAllProvider(data)
+                }
+            })
+        }
+        function showAllOrderByProvider() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/provider/orders/" + id,
+                success: function (data){
+                    showAllProvider(data)
+                }
             })
         }
 
