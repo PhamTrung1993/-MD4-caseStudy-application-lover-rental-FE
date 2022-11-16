@@ -64,19 +64,22 @@ function showProviderId(data){
                     <td>${data.facebook}</td>
                     </tr>
                     <tr>
-                    <td>Can nang : </td>
+                    <td>Weigh : </td>
                     <td>${data.weight}</td>
                     </tr>
                     <tr>
-                    <td>chieu cao : </td>
+                    <td>Height : </td>
                     <td>${data.height}</td>
                     </tr>
                     <tr>
-                    <td>Luot thue : </td>
+                    <td>Has been hired : </td>
                     <td>${data.hasBeenHired}</td>
                     </tr>
                     <button onclick="showServiceByProvider(getProviderId())">Show Service</button>
-                    <tr id="showServiceByProvider"></tr>
+                    
+                    <tr id="showServiceByProvider">
+                    
+                    </tr>
                         
                     </table> 
             </div>
@@ -95,7 +98,7 @@ function showServiceByProvider(providerId){
             for (let i = 0; i < data.length; i++) {
                 content += showOneService(data[i]);
             }
-            document.getElementById('showServiceByProvider').innerHTML = "<td>" + content + "</td>";
+            document.getElementById('showServiceByProvider').innerHTML = "<td>Service:</td><td>" + content + "</td>";
         }
     })
 }
