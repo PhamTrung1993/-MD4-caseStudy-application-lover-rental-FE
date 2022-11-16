@@ -76,7 +76,7 @@ function showProviderId(data){
                     <td>${data.hasBeenHired}</td>
                     </tr>
                     <button onclick="showServiceByProvider(getProviderId())">Show Service</button>
-                    <button onclick="showFormAddOrder()">Match</button>
+                    <button onclick="showFormAddOrder()">Book</button>
                     <tr id="showServiceByProvider">
                     
                     </tr>
@@ -90,15 +90,36 @@ function showProviderId(data){
     document.getElementById("view").innerHTML = res  ;
 }
 function showFormAddOrder(){
-    let form = `
-                        <br><input type="text" id="user_id" placeholder="ID Khách hàng">
-                        <br><input type="text" id="provider_id" placeholder="ID người Cung Cấp">
-                        <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
+    let form = ` <input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
                         <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
-                        <br><button onclick="addNewOrder()">Save</button><br>
-                        `
-
+                        <br><button onclick="booking()">Save</button><br>                 `
     document.getElementById("view").innerHTML = form;
+}
+function booking(){
+    let user_id = Number(localStorage.getItem("id"));
+    let provider_id = Number(localStorage.getItem("providerId"));
+    let startTime = $('#startTime').val();
+    let timeRent = $('#timeRent').val();
+    let status = $('#status').val();
+    //nghi nó chuyển về string nên nó không add vô cần chuyển về int
+    let newOrder = {
+        startTime: startTime,
+        timeRent: timeRent,
+        status: status,
+        provider_id: provider_id,
+        user_id: user_id
+    };
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newOrder),
+        url: "http://localhost:8080/orders",
+        success: alert("done")
+    });
+    event.preventDefault();
 }
 function showServiceByProvider(providerId){
     $.ajax({
