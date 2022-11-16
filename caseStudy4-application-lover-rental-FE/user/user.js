@@ -4,8 +4,8 @@ if (tk == null){
     window.location.href = "login.html"
 }
 
-successHandler();
-function successHandler() {
+getListUser();
+function getListUser() {
     $.ajax({
         type: "GET",
         //tên API
