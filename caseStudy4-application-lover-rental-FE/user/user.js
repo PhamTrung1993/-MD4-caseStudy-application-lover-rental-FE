@@ -1,7 +1,6 @@
 let tk = localStorage.getItem("token");
-let rl = localStorage.getItem("role");
 if (tk == null){
-    window.location.href = "login.html"
+    window.location.href = "caseStudy4-application-lover-rental-FE/login.html"
 }
 
 successHandler();
@@ -17,8 +16,8 @@ function successHandler() {
                 '        <td>ID</td>\n' +
                 '        <td>Name</td>\n' +
                 '        <td>Email</td>\n' +
-                '        <td>Delete</td>\n' +
-                '        <td>Become Provider</td>\n' +
+                '        <button><td>Delete</td></button>\n' +
+                '        <button><td>Become Provider</td></button>\n' +
                 '    </tr>';
             for (let i = 0; i < data.length; i++) {
                 content += getUser(data[i]);
