@@ -1,12 +1,8 @@
 let tk = localStorage.getItem("token");
 let rl = localStorage.getItem("role");
+console.log(tk, rl)
 if (tk == null){
-    window.location.href = "login.html"
-}
-if (rl == "ROLE_ADMIN" && rl == "ROLE_PO" && rl == "ROLE_PROVIDER"){
-    window.location.href = "provider.html"}
-else if (rl == "ROLE_USER"){
-    window.location.href = "AccessDenied.html"
+    window.location.href = "caseStudy4-application-lover-rental-FE/login.html"
 }
 
 function test() {

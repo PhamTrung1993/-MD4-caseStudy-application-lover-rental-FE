@@ -24,24 +24,16 @@ function Login() {
             localStorage.setItem("id",data.id);
 
             if (data.roles[0].authority == "ROLE_PO"){
-<<<<<<< HEAD
-                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
+                location.href = "caseStudy4-application-lover-rental-FE/ProviderFullList.html"
             }else if(data.roles[0].authority == "ROLE_ADMIN"){
-                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
+                location.href = "caseStudy4-application-lover-rental-FE/ProviderFullList.html"
             }else if(data.roles[0].authority == "ROLE_PROVIDER"){
-                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
-=======
-                location.href = "../po/po.html"
-            }else if(data.roles[0].authority == "ROLE_ADMIN"){
-                location.href = "../admin/admin.html"
-            }else if(data.roles[0].authority == "ROLE_PROVIDER"){
-                location.href = "../provider/provider.html"
->>>>>>> login
+                location.href = "caseStudy4-application-lover-rental-FE/ProviderFullList.html"
             }else if(data.roles[0].authority == "ROLE_USER"){
-                location.href = "caseStudy4-application-lover-rental-FE\\user.html"
+                location.href = "caseStudy4-application-lover-rental-FE/ProviderFullList.html"
             }else {
                 alert("lon")
-                location.href = "../login.html"
+                location.href = "caseStudy4-application-lover-rental-FE/user.html"
             }
             console.log(data)
         },
