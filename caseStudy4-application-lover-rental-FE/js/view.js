@@ -9,17 +9,18 @@ getProviderById();
 //     })
 // }
 // ham get 1 provider
-function getProviderById(){
+function getProviderById() {
     let idNext = localStorage.getItem("providerId");
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/"+idNext,
-        success: function (data){
+        url: "http://localhost:8080/provider/" + idNext,
+        success: function (data) {
             showProviderId(data);
         }
     })
 }
-function showProviderId(data){
+
+function showProviderId(data) {
     let res =
         `<div class="product-img-box col-sm-4 col-xs-12">
                   <div class="new-label new-top-left">Provider </div>
@@ -77,6 +78,8 @@ function showProviderId(data){
                     </tr>
                     <button onclick="showServiceByProvider(getProviderId())">Show Service</button>
                     <button onclick="showFormAddOrder()">Book</button>
+                     
+
                     <tr id="showServiceByProvider">
                     
                     </tr>
@@ -87,17 +90,26 @@ function showProviderId(data){
         </div>
        `
 
-    document.getElementById("view").innerHTML = res  ;
+    document.getElementById("view").innerHTML = res;
 }
-function showFormAddOrder(){
-    let form = ` <input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
-                        <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
-                        <br><button onclick="booking()">Save</button><br>                 `
-    document.getElementById("view").innerHTML = form;
+
+function showFormAddOrder() {
+    location.assign("order.html");
+    // let userid = localStorage.getItem("id");
+    // let providerId = localStorage.getItem("providerId");
+    // let form = `
+    //
+    //                     <br><input type="datetime-local" id="startTime" placeholder="Ngày Bắt Đầu">
+    //                     <br><input type="text" id="timeRent" placeholder="Số giờ thuê">
+    //                     <br><button onclick="booking()">Save</button><br><input type="hidden" id="userId" value="${userid}">
+    //                     <input type="hidden" id="providerId" value="${providerId}">
+    //                     `
+    // document.getElementById("view").innerHTML = form;
 }
-function booking(){
-    let user_id = Number(localStorage.getItem("id"));
-    let provider_id = Number(localStorage.getItem("providerId"));
+
+function booking() {
+    let user_id = $('#userId').val();
+    let provider_id = $('#providerId').val();
     let startTime = $('#startTime').val();
     let timeRent = $('#timeRent').val();
     let status = $('#status').val();
@@ -112,21 +124,28 @@ function booking(){
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         type: "POST",
-        data: JSON.stringify(newOrder),
         url: "http://localhost:8080/orders",
-        success: alert("done")
-    });
+        data: JSON.stringify(newOrder),
+        success: function () {
+            alert("done")
+            location.reload();
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
     event.preventDefault();
 }
-function showServiceByProvider(providerId){
+
+function showServiceByProvider(providerId) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/provider/serProvidedByUser/"+providerId,
-        success: function (data){
-            let content ="";
+        url: "http://localhost:8080/provider/serProvidedByUser/" + providerId,
+        success: function (data) {
+            let content = "";
             for (let i = 0; i < data.length; i++) {
                 content += showOneService(data[i]);
             }
@@ -134,6 +153,7 @@ function showServiceByProvider(providerId){
         }
     })
 }
-function showOneService(lists){
-    return `${lists.name}` + "," ;
+
+function showOneService(lists) {
+    return `${lists.name}` + ",";
 }

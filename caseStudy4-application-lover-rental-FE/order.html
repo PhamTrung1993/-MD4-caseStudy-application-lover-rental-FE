@@ -30,14 +30,14 @@
         let tk = localStorage.getItem("token");
         let rl = localStorage.getItem("role");
         let id = localStorage.getItem("id")
-        if (tk == null) {
-            window.location.href = "login.html"
-        }
-        if (rl == "ROLE_ADMIN" && rl == "ROLE_PO") {
-            window.location.href = "order.html"
-        } else if (rl == "ROLE_USER" || rl == "ROLE_PROVIDER") {
-            window.location.href = "AccessDenied.html"
-        }
+        // if (tk == null) {
+        //     window.location.href = "login.html"
+        // }
+        // if (rl == "ROLE_ADMIN" && rl == "ROLE_PO") {
+        //     window.location.href = "order.html"
+        // } else if (rl == "ROLE_USER" || rl == "ROLE_PROVIDER") {
+        //     window.location.href = "AccessDenied.html"
+        // }
 
         // showAllOrder2()
         function checkShow(rl) {
@@ -448,7 +448,7 @@
     </nav>
     <!-- end nav -->
 
-<!--    <button onclick="showAddOrder()">Thêm Order</button>-->
+    <button onclick="showAddOrder()">Thêm Order</button>
 
     <div id="displayOrder" style="margin: 0 50% 0 50%;"></div>
 
